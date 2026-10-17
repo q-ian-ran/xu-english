@@ -1,0 +1,2276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#F7F5EF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>续 · 英语</title>
+<style>
+:root{
+  --bg:#F7F5EF;
+  --bg-2:#F1EEE4;
+  --card:#FFFFFF;
+  --ink:#1E211C;
+  --ink-2:#454A41;
+  --muted:#8B9085;
+  --line:#E5E0D4;
+  --line-2:#EFEBE1;
+  --accent:#2E5C4E;
+  --accent-2:#E7EFEA;
+  --accent-3:#3C7461;
+  --warm:#B4653A;
+  --warm-2:#F7EAE1;
+  --gold:#A98643;
+  --radius:18px;
+  --radius-sm:12px;
+  --shadow:0 1px 2px rgba(30,33,28,.03), 0 10px 30px -18px rgba(30,33,28,.22);
+  --serif:Georgia,"Iowan Old Style","Times New Roman","Songti SC",serif;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  font-family:var(--sans);
+  background:var(--bg);
+  color:var(--ink);
+  font-size:15px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+  overscroll-behavior-y:none;
+}
+button{font-family:inherit;font-size:inherit;color:inherit;background:none;border:none;cursor:pointer}
+input,select{font-family:inherit;font-size:inherit;color:inherit}
+
+.app{max-width:540px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;position:relative;background:var(--bg)}
+@media(min-width:700px){
+  body{background:var(--bg-2)}
+  .app{box-shadow:0 0 0 1px rgba(30,33,28,.05);background:var(--bg);min-height:100vh}
+}
+
+/* ---- 顶栏 ---- */
+.topbar{
+  position:sticky;top:0;z-index:40;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 20px 12px;
+  background:rgba(247,245,239,.92);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+}
+.brand{display:flex;align-items:baseline;gap:8px}
+.brand-mark{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:.06em;color:var(--accent)}
+.brand-sub{font-size:11px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase}
+.topstat{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.topstat b{color:var(--accent);font-weight:600;font-size:14px}
+
+/* ---- 视图 ---- */
+.view{padding:6px 20px 120px;flex:1;animation:rise .34s cubic-bezier(.22,.9,.3,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.view{animation:none}}
+
+/* ---- 通用 ---- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+.sec-t{display:flex;align-items:baseline;justify-content:space-between;margin:26px 2px 12px}
+.sec-t h2{font-size:13px;font-weight:600;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.sec-t a{font-size:12.5px;color:var(--accent);font-weight:500}
+.serif{font-family:var(--serif)}
+.muted{color:var(--muted)}
+.small{font-size:12.5px}
+.tnum{font-variant-numeric:tabular-nums}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:13px 22px;border-radius:100px;font-size:15px;font-weight:600;
+  transition:transform .12s ease, background .18s ease, opacity .18s;
+  background:var(--accent);color:#fff;
+}
+.btn:active{transform:scale(.975)}
+.btn.ghost{background:transparent;color:var(--accent);box-shadow:inset 0 0 0 1.5px var(--accent)}
+.btn.soft{background:var(--accent-2);color:var(--accent);box-shadow:none}
+.btn.wide{width:100%}
+.btn.sm{padding:9px 16px;font-size:13.5px}
+.btn:disabled{opacity:.4;pointer-events:none}
+
+.chip{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:100px;background:var(--accent-2);color:var(--accent);font-size:11.5px;font-weight:600;letter-spacing:.02em}
+.chip.warm{background:var(--warm-2);color:var(--warm)}
+.chip.gray{background:var(--bg-2);color:var(--muted)}
+
+/* ---- 首页 ---- */
+.greet{padding:10px 2px 20px}
+.greet h1{font-family:var(--serif);font-size:28px;line-height:1.34;font-weight:600;letter-spacing:.01em}
+.greet p{margin-top:9px;font-size:14px;color:var(--ink-2);line-height:1.72}
+.greet p em{font-style:normal;background:linear-gradient(transparent 62%, #DCe8e2 62%);padding:0 1px}
+
+.resume-card{
+  margin-top:2px;display:flex;align-items:center;gap:14px;cursor:pointer;
+  background:linear-gradient(112deg,#2E5C4E,#3B7260);color:#fff;border:none;
+}
+.resume-card .rc-body{flex:1;min-width:0}
+.resume-card .rc-k{font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.72;margin-bottom:4px}
+.resume-card .rc-main{font-size:17px;font-weight:600;letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.resume-card .rc-sub{font-size:12.5px;opacity:.78;margin-top:3px}
+.resume-card .rc-arrow{flex:none;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.16);display:grid;place-items:center}
+
+.block-list{margin-top:4px;display:flex;flex-direction:column;gap:10px}
+.block{
+  display:flex;align-items:center;gap:14px;padding:16px 18px;background:var(--card);
+  border:1px solid var(--line);border-radius:var(--radius);cursor:pointer;transition:border-color .18s, transform .12s, background .2s;
+}
+.block:active{transform:scale(.992)}
+.block.done{background:#FBFAF6;border-color:var(--line-2)}
+.block .bk-num{
+  flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
+  font-size:12px;font-weight:700;color:var(--accent);background:var(--accent-2);
+  font-variant-numeric:tabular-nums;
+}
+.block.done .bk-num{background:var(--accent);color:#fff}
+.block .bk-main{flex:1;min-width:0}
+.block .bk-t{font-size:15px;font-weight:600;letter-spacing:.01em}
+.block .bk-s{font-size:12.5px;color:var(--muted);margin-top:2px}
+.block.done .bk-t{color:var(--muted);text-decoration:line-through;text-decoration-thickness:1px;text-decoration-color:#C9C3B4}
+.block .bk-go{flex:none;color:#C4C8BE;font-size:18px}
+
+.done-note{margin-top:18px;padding:16px 18px;border:1px dashed #CFCBBD;border-radius:var(--radius);text-align:center;background:#FBF9F3}
+.done-note .dn-t{font-size:14px;font-weight:600;color:var(--accent)}
+.done-note .dn-s{font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.65}
+
+/* 14 日热力 */
+.heat{display:flex;gap:5px;margin-top:14px;align-items:flex-end}
+.heat .h{flex:1;height:34px;border-radius:5px;background:var(--line-2);position:relative}
+.heat .h.on{background:var(--accent-3)}
+.heat .h.mid{background:#9FBFB2}
+.heat .h.today{outline:1.5px solid var(--accent);outline-offset:1.5px}
+.heat-legend{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);margin-top:7px;letter-spacing:.04em}
+
+/* ---- 闪卡 ---- */
+.flash-wrap{padding-top:8px}
+.fbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.fbar .fb-l{font-size:12px;color:var(--muted);letter-spacing:.06em}
+.fbar .fb-r{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.progress{height:3px;border-radius:99px;background:var(--line-2);overflow:hidden;margin-bottom:22px}
+.progress i{display:block;height:100%;background:var(--accent-3);border-radius:99px;transition:width .35s cubic-bezier(.3,.9,.3,1)}
+
+.flash{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:34px 24px 24px;text-align:center;box-shadow:var(--shadow);min-height:330px;display:flex;flex-direction:column}
+.flash .fw{font-family:var(--serif);font-size:38px;letter-spacing:.005em;line-height:1.2;word-break:break-word}
+.flash .fp{font-size:14px;color:var(--muted);margin-top:8px;letter-spacing:.02em;font-family:var(--serif)}
+.flash .fspeak{margin:18px auto 0;width:44px;height:44px;border-radius:50%;background:var(--accent-2);color:var(--accent);display:grid;place-items:center;transition:background .18s}
+.flash .fspeak:active{background:#D6E5DD}
+.flash .fback{margin-top:20px;padding-top:20px;border-top:1px solid var(--line-2);text-align:left;animation:rise .26s ease both}
+.flash .fpos{font-size:11.5px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
+.flash .fcn{font-size:18px;font-weight:600;line-height:1.5}
+.flash .fex{margin-top:16px;padding:13px 15px;background:#FAF8F2;border-radius:12px;border-left:2.5px solid var(--accent-2)}
+.flash .fex .fe{font-family:var(--serif);font-size:15px;line-height:1.66;color:var(--ink)}
+.flash .fex .fc{font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.6}
+.flash .fex .fe b{color:var(--accent);font-weight:600}
+.flash-hint{margin-top:auto;padding-top:24px;font-size:12px;color:#BDB8A9;letter-spacing:.06em}
+.flash-hint.tap{animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}
+
+.grade{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px}
+.grade button{
+  padding:12px 4px 11px;border-radius:13px;background:#FBF9F3;border:1px solid var(--line);
+  display:flex;flex-direction:column;align-items:center;gap:3px;transition:transform .1s, background .15s;
+}
+.grade button:active{transform:scale(.96)}
+.grade b{font-size:13.5px;font-weight:600}
+.grade span{font-size:10.5px;color:var(--muted);letter-spacing:.02em}
+.grade button[data-g="again"] b{color:#A9503F}
+.grade button[data-g="hard"] b{color:var(--warm)}
+.grade button[data-g="good"] b{color:var(--accent)}
+.grade button[data-g="easy"] b{color:var(--gold)}
+
+/* ---- 听说 ---- */
+.speak-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:28px 22px;box-shadow:var(--shadow)}
+.speak-en{font-family:var(--serif);font-size:23px;line-height:1.58;letter-spacing:.005em}
+.speak-en .hl{background:linear-gradient(transparent 66%,#F3E4D8 66%);border-radius:2px}
+.speak-cn{margin-top:14px;font-size:14px;color:var(--muted);line-height:1.7;border-top:1px dashed var(--line);padding-top:14px}
+.speak-cn.hide{display:none}
+.speak-tip{margin-top:12px;font-size:12.5px;color:var(--warm);background:var(--warm-2);padding:9px 12px;border-radius:10px;line-height:1.6}
+.ctrl-row{display:flex;gap:9px;margin-top:20px;flex-wrap:wrap}
+.ctrl{flex:1;min-width:96px;padding:12px 8px;border-radius:13px;background:#FAF8F2;border:1px solid var(--line);font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .16s}
+.ctrl:active{background:var(--accent-2)}
+.ctrl.rec{color:#A9503F;border-color:#EBD5CE;background:#FCF3F0}
+.ctrl.rec.on{background:#A9503F;color:#fff;border-color:#A9503F;animation:recpulse 1.4s infinite}
+@keyframes recpulse{0%,100%{box-shadow:0 0 0 0 rgba(169,80,63,.3)}50%{box-shadow:0 0 0 7px rgba(169,80,63,0)}}
+
+/* ---- 精读 ---- */
+.passage-item{display:flex;align-items:center;gap:14px;padding:17px 18px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:10px;cursor:pointer}
+.passage-item .pi-n{font-family:var(--serif);font-size:19px;color:#CFCBBC;width:22px;flex:none;font-style:italic}
+.passage-item .pi-b{flex:1;min-width:0}
+.passage-item .pi-t{font-family:var(--serif);font-size:16.5px;font-weight:600;letter-spacing:.005em}
+.passage-item .pi-s{font-size:12px;color:var(--muted);margin-top:3px}
+.passage-item .pi-d{width:7px;height:7px;border-radius:50%;background:var(--accent-3);flex:none}
+
+.sent{padding:16px 0;border-bottom:1px solid var(--line-2)}
+.sent:last-child{border-bottom:none}
+.sent .s-en{font-family:var(--serif);font-size:17.5px;line-height:1.72;letter-spacing:.004em}
+.sent .s-en .w{cursor:pointer;border-bottom:1px solid transparent;transition:background .12s,border-color .12s}
+.sent .s-en .w:hover,.sent .s-en .w:active{background:var(--accent-2);border-bottom-color:var(--accent-3)}
+.sent .s-cn{margin-top:9px;font-size:13.5px;color:var(--muted);line-height:1.7;display:none}
+.sent.show .s-cn{display:block;animation:rise .24s ease both}
+.sent .s-act{margin-top:9px;display:flex;gap:14px;align-items:center}
+.sent .s-btn{font-size:12px;color:var(--accent);font-weight:600;letter-spacing:.02em}
+.sent .s-btn.dim{color:#C0BCAD}
+
+/* 点词弹窗 */
+.wordpop{
+  position:fixed;left:50%;bottom:0;transform:translateX(-50%) translateY(100%);
+  width:100%;max-width:540px;background:#fff;border-radius:22px 22px 0 0;
+  box-shadow:0 -10px 40px -20px rgba(30,33,28,.4);padding:22px 22px calc(22px + env(safe-area-inset-bottom));
+  z-index:80;transition:transform .28s cubic-bezier(.22,.9,.3,1);
+}
+.wordpop.on{transform:translateX(-50%) translateY(0)}
+.wordpop .wp-w{font-family:var(--serif);font-size:26px;font-weight:600}
+.wordpop .wp-p{font-size:13px;color:var(--muted);margin-top:3px}
+.wordpop .wp-c{font-size:15px;margin-top:12px;line-height:1.6}
+.wordpop .wp-act{margin-top:16px;display:flex;gap:10px}
+.scrim{position:fixed;inset:0;background:rgba(30,33,28,.28);opacity:0;pointer-events:none;transition:opacity .26s;z-index:70}
+.scrim.on{opacity:1;pointer-events:auto}
+
+/* ---- 更多 / 列表 ---- */
+.menu-list{display:flex;flex-direction:column;gap:10px}
+.menu-item{display:flex;align-items:center;gap:14px;padding:17px 18px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);cursor:pointer;transition:transform .12s}
+.menu-item:active{transform:scale(.992)}
+.menu-item .mi-ico{flex:none;width:38px;height:38px;border-radius:11px;background:var(--accent-2);color:var(--accent);display:grid;place-items:center}
+.menu-item .mi-b{flex:1;min-width:0}
+.menu-item .mi-t{font-size:15px;font-weight:600}
+.menu-item .mi-s{font-size:12.5px;color:var(--muted);margin-top:2px}
+.menu-item .mi-go{color:#C7CBBF;font-size:17px}
+
+/* 语法卡 */
+.g-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:10px;overflow:hidden}
+.g-head{padding:16px 18px;display:flex;align-items:center;gap:12px;cursor:pointer}
+.g-head .gh-n{font-family:var(--serif);font-size:14px;color:#C6C2B2;font-style:italic;width:20px;flex:none}
+.g-head .gh-b{flex:1}
+.g-head .gh-t{font-size:15px;font-weight:600}
+.g-head .gh-s{font-size:12.5px;color:var(--muted);margin-top:2px}
+.g-head .gh-x{color:#C7CBBF;transition:transform .24s}
+.g-card.open .gh-x{transform:rotate(90deg)}
+.g-body{display:none;padding:0 18px 18px}
+.g-card.open .g-body{display:block;animation:rise .24s ease both}
+.g-form{padding:11px 14px;background:#FAF8F2;border-radius:11px;font-family:var(--serif);font-size:14.5px;margin-bottom:12px;border-left:2.5px solid var(--accent-2);line-height:1.6}
+.g-ex{padding-left:13px;border-left:2px solid var(--line);margin-bottom:9px}
+.g-ex .ge-en{font-family:var(--serif);font-size:14.5px;line-height:1.6}
+.g-ex .ge-cn{font-size:12.5px;color:var(--muted);margin-top:2px}
+.g-err{margin-top:12px;padding:11px 13px;background:#FCF3EF;border-radius:10px;font-size:12.5px;color:#9A5540;line-height:1.65}
+.quiz{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)}
+.quiz .q-t{font-size:13.5px;font-weight:600;margin-bottom:10px;line-height:1.6}
+.quiz .q-o{display:block;width:100%;text-align:left;padding:10px 13px;border:1px solid var(--line);border-radius:10px;margin-bottom:7px;font-size:13.5px;transition:background .16s,border-color .16s}
+.quiz .q-o:active{background:#FAF8F2}
+.quiz .q-o.right{background:var(--accent-2);border-color:var(--accent-3);color:var(--accent);font-weight:600}
+.quiz .q-o.wrong{background:#FCF1EE;border-color:#E3B9AC;color:#9A5540}
+.q-why{font-size:12.5px;color:var(--ink-2);margin-top:8px;line-height:1.7;display:none}
+.q-why.on{display:block}
+
+/* 写作模板 */
+.w-tpl{padding:15px 16px;background:#FAF8F2;border-radius:12px;font-family:var(--serif);font-size:14.5px;line-height:1.85;margin-bottom:12px;white-space:pre-wrap}
+.w-tpl b{color:var(--accent);font-weight:600;background:var(--accent-2);padding:1px 3px;border-radius:3px}
+.w-note{font-size:12.5px;color:var(--muted);line-height:1.7}
+
+/* 设置行 */
+.set-row{display:flex;align-items:center;justify-content:space-between;padding:15px 0;border-bottom:1px solid var(--line-2);gap:16px}
+.set-row:last-child{border-bottom:none}
+.set-row .sr-t{font-size:14.5px}
+.set-row .sr-s{font-size:12px;color:var(--muted);margin-top:2px}
+.stepper{display:flex;align-items:center;gap:2px;background:var(--bg-2);border-radius:100px;padding:3px}
+.stepper button{width:30px;height:30px;border-radius:50%;font-size:16px;color:var(--accent);display:grid;place-items:center;font-weight:600}
+.stepper button:active{background:#E4E0D3}
+.stepper span{min-width:34px;text-align:center;font-size:13.5px;font-weight:600;font-variant-numeric:tabular-nums}
+
+/* 数据条 */
+.bar-row{margin-bottom:15px}
+.bar-row .br-h{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:6px}
+.bar-row .br-h b{font-weight:600}
+.bar-track{height:6px;border-radius:99px;background:var(--line-2);overflow:hidden}
+.bar-track i{display:block;height:100%;border-radius:99px;background:var(--accent-3)}
+
+/* 统计大数字 */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.stat-box{padding:16px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius)}
+.stat-box .sb-n{font-family:var(--serif);font-size:30px;line-height:1.1;color:var(--accent);letter-spacing:-.01em}
+.stat-box .sb-n small{font-size:14px;margin-left:2px;color:var(--muted)}
+.stat-box .sb-l{font-size:12px;color:var(--muted);margin-top:5px;letter-spacing:.03em}
+
+/* 今日结束 */
+.finish{text-align:center;padding:46px 24px 30px}
+.finish .fin-mark{width:64px;height:64px;border-radius:50%;background:var(--accent-2);display:grid;place-items:center;margin:0 auto 20px}
+.finish h3{font-family:var(--serif);font-size:23px;font-weight:600;letter-spacing:.01em}
+.finish p{font-size:13.5px;color:var(--muted);margin-top:10px;line-height:1.75;max-width:300px;margin-left:auto;margin-right:auto}
+.finish .fin-act{margin-top:26px;display:flex;flex-direction:column;gap:10px;max-width:260px;margin-left:auto;margin-right:auto}
+
+/* ---- 底栏 ---- */
+.tabbar{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:540px;z-index:60;
+  display:grid;grid-template-columns:repeat(5,1fr);
+  padding:9px 8px calc(9px + env(safe-area-inset-bottom));
+  background:rgba(252,251,246,.94);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-top:1px solid var(--line);
+}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 0;color:#B0B4A8;transition:color .18s}
+.tab.on{color:var(--accent)}
+.tab svg{width:21px;height:21px;stroke-width:1.7}
+.tab span{font-size:10.5px;letter-spacing:.02em;font-weight:500}
+.tab.on span{font-weight:600}
+
+/* toast */
+.toast{
+  position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(12px);
+  background:rgba(30,33,28,.92);color:#fff;padding:10px 18px;border-radius:100px;
+  font-size:13px;z-index:100;opacity:0;pointer-events:none;transition:opacity .24s,transform .24s;
+  white-space:nowrap;max-width:88vw;overflow:hidden;text-overflow:ellipsis;
+}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.empty{text-align:center;padding:56px 24px;color:var(--muted);font-size:13.5px;line-height:1.8}
+.divider{height:1px;background:var(--line);margin:22px 0}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">续</span>
+      <span class="brand-sub">English</span>
+    </div>
+    <div class="topstat" id="topstat"><b>0</b> 块</div>
+  </header>
+  <main class="view" id="view"></main>
+  <nav class="tabbar" id="tabbar">
+    <button class="tab on" data-tab="home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/></svg>
+      <span>今日</span>
+    </button>
+    <button class="tab" data-tab="words">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="13" height="14" rx="2.5"/><path d="M7.5 3h11a2.5 2.5 0 0 1 2.5 2.5v11"/></svg>
+      <span>单词</span>
+    </button>
+    <button class="tab" data-tab="speak">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10v4M8 6.5v11M12 3.5v17M16 7.5v9M20 10.5v3"/></svg>
+      <span>听说</span>
+    </button>
+    <button class="tab" data-tab="read">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5.5h6a3 3 0 0 1 3 3V20a2.5 2.5 0 0 0-2.5-2.5H3z"/><path d="M21 5.5h-6a3 3 0 0 0-3 3V20a2.5 2.5 0 0 1 2.5-2.5H21z"/></svg>
+      <span>精读</span>
+    </button>
+    <button class="tab" data-tab="more">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>
+      <span>更多</span>
+    </button>
+  </nav>
+</div>
+<div class="scrim" id="scrim"></div>
+<div class="wordpop" id="wordpop"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ==========================================================================
+   DATA —— 只放数据，不放逻辑
+   WORDS  : 词库 100，六组，字段 w=词 p=音标 t=词性 c=释义 e=例句 ec=例句中译
+   SHADOW : 跟读 24 句，字段 e=英文 c=中文 l=连读提示
+   PASSAGES: 精读 4 篇，字段 t=标题 s=[{e=英文,c=中文,k=[表达]}]
+   GRAMMAR: 语法 4 条；WRITING: 写作 3 篇；SETTINGS: 默认设置
+   ========================================================================== */
+
+const WORDS = [
+  { g:'考试高频动词', w:'address', p:'/əˈdres/', t:'v.', c:'处理；应对（问题）', e:'The report fails to address the underlying causes of the housing crisis.', ec:'这份报告没能处理住房危机的深层原因。' },
+  { g:'考试高频动词', w:'assume', p:'/əˈsjuːm/', t:'v.', c:'假定；承担', e:'We should not assume that higher prices necessarily reflect better quality.', ec:'我们不该假定价格更高就一定代表质量更好。' },
+  { g:'考试高频动词', w:'attribute', p:'/əˈtrɪbjuːt/', t:'v.', c:'把…归因于', e:'She attributes her success to consistent practice rather than natural talent.', ec:'她把成功归于持续练习，而不是天分。' },
+  { g:'考试高频动词', w:'comprise', p:'/kəmˈpraɪz/', t:'v.', c:'由…组成；构成', e:'The committee comprises twelve members drawn from six different departments.', ec:'该委员会由来自六个不同部门的十二名成员组成。' },
+  { g:'考试高频动词', w:'conduct', p:'/kənˈdʌkt/', t:'v.', c:'进行；实施', e:'Researchers conducted a survey of two thousand households across the province.', ec:'研究者在全省范围内对两千户家庭做了调查。' },
+  { g:'考试高频动词', w:'demonstrate', p:'/ˈdemənstreɪt/', t:'v.', c:'证明；演示', e:'The experiment clearly demonstrates the effect of sleep loss on memory.', ec:'这个实验清楚地证明了睡眠不足对记忆的影响。' },
+  { g:'考试高频动词', w:'derive', p:'/dɪˈraɪv/', t:'v.', c:'源自；获得', e:'Many English words derive from Latin and Greek roots.', ec:'许多英语单词源自拉丁语和希腊语词根。' },
+  { g:'考试高频动词', w:'establish', p:'/ɪˈstæblɪʃ/', t:'v.', c:'建立；证实', e:'The two sides finally established a framework for future cooperation.', ec:'双方终于为今后的合作建立了框架。' },
+  { g:'考试高频动词', w:'impose', p:'/ɪmˈpəʊz/', t:'v.', c:'施加；强加', e:'The government imposed a heavy tax on single-use plastic bags.', ec:'政府对一次性塑料袋课以重税。' },
+  { g:'考试高频动词', w:'indicate', p:'/ˈɪndɪkeɪt/', t:'v.', c:'表明；暗示', e:'Recent figures indicate a steady decline in youth unemployment.', ec:'最新数据显示青年失业率在稳步下降。' },
+  { g:'考试高频动词', w:'justify', p:'/ˈdʒʌstɪfaɪ/', t:'v.', c:'证明…正当', e:'It is hard to justify spending so much on a project with so little impact.', ec:'很难为一个影响如此之小的项目花这么多钱找到理由。' },
+  { g:'考试高频动词', w:'maintain', p:'/meɪnˈteɪn/', t:'v.', c:'维持；主张', e:'It is difficult to maintain a healthy diet when you eat out every day.', ec:'天天在外面吃饭，很难保持健康饮食。' },
+  { g:'考试高频动词', w:'obtain', p:'/əbˈteɪn/', t:'v.', c:'获得', e:'You must obtain written permission before using these photographs.', ec:'使用这些照片之前必须先取得书面许可。' },
+  { g:'考试高频动词', w:'pursue', p:'/pəˈsjuː/', t:'v.', c:'追求；从事', e:'She decided to pursue a career in environmental law after graduation.', ec:'毕业后她决定从事环境法方面的工作。' },
+  { g:'考试高频动词', w:'reveal', p:'/rɪˈviːl/', t:'v.', c:'揭示；透露', e:'The survey revealed a sharp gap between what students say and what they do.', ec:'调查揭示了学生嘴上说的和实际做的之间有明显落差。' },
+  { g:'考试高频动词', w:'sustain', p:'/səˈsteɪn/', t:'v.', c:'维持；支撑', e:'The local economy cannot sustain so many small shops without tourism.', ec:'没有旅游业，本地经济撑不起这么多小店。' },
+  { g:'考试高频动词', w:'undertake', p:'/ˌʌndəˈteɪk/', t:'v.', c:'着手；承担', e:'The university undertook a major review of its admission procedures.', ec:'这所大学对招生流程进行了一次全面审查。' },
+
+  { g:'描述人与态度', w:'ambivalent', p:'/æmˈbɪvələnt/', t:'adj.', c:'矛盾的（既想又抗拒）', e:'She felt ambivalent about leaving the job she had complained about for years.', ec:'要离开那份她抱怨了多年的工作，她心情很矛盾。' },
+  { g:'描述人与态度', w:'arrogant', p:'/ˈærəɡənt/', t:'adj.', c:'傲慢的', e:'His arrogant dismissal of every suggestion made him difficult to work with.', ec:'他对任何建议都傲慢地一口否掉，让人很难和他共事。' },
+  { g:'描述人与态度', w:'cautious', p:'/ˈkɔːʃəs/', t:'adj.', c:'谨慎的', e:'Economists remain cautious about predicting a quick recovery next year.', ec:'经济学家对预测明年快速复苏仍持谨慎态度。' },
+  { g:'描述人与态度', w:'deliberate', p:'/dɪˈlɪbərət/', t:'adj.', c:'故意的；从容的', e:'The omission was deliberate, not an oversight in the final report.', ec:'这个遗漏是故意的，不是最终报告里的疏忽。' },
+  { g:'描述人与态度', w:'diligent', p:'/ˈdɪlɪdʒənt/', t:'adj.', c:'勤奋认真的', e:'A diligent reader checks the sources before repeating a claim.', ec:'认真的读者在转述一个说法之前会先核对来源。' },
+  { g:'描述人与态度', w:'enthusiastic', p:'/ɪnˌθjuːziˈæstɪk/', t:'adj.', c:'热情的', e:'The staff were enthusiastic about the plan until the budget was cut.', ec:'员工本来对方案很热情，直到预算被砍。' },
+  { g:'描述人与态度', w:'genuine', p:'/ˈdʒenjuɪn/', t:'adj.', c:'真诚的；真正的', e:'Her interest in the subject was genuine, not merely a way to pass the exam.', ec:'她对这门课的兴趣是真诚的，不只是为了通过考试。' },
+  { g:'描述人与态度', w:'humble', p:'/ˈhʌmbl/', t:'adj.', c:'谦虚的；卑微的', e:'He is remarkably humble about his own contribution to the discovery.', ec:'对自己在这项发现中的贡献，他谦虚得让人意外。' },
+  { g:'描述人与态度', w:'indifferent', p:'/ɪnˈdɪfrənt/', t:'adj.', c:'漠不关心的', e:'Most voters seemed indifferent to the details of the new policy.', ec:'多数选民似乎对新政的细节毫不在意。' },
+  { g:'描述人与态度', w:'modest', p:'/ˈmɒdɪst/', t:'adj.', c:'谦虚的；适度的', e:'She is modest about her achievements, though everyone else praises them.', ec:'她对自己的成绩很谦虚，尽管别人都在夸。' },
+  { g:'描述人与态度', w:'obstinate', p:'/ˈɒbstɪnət/', t:'adj.', c:'固执的（拒绝改变）', e:'He was too obstinate to admit that the original plan had failed.', ec:'他太固执，不肯承认最初的方案已经失败。' },
+  { g:'描述人与态度', w:'persistent', p:'/pəˈsɪstənt/', t:'adj.', c:'坚持不懈的', e:'Her persistent questions eventually forced the company to explain the delay.', ec:'她穷追不舍的追问最终逼得公司解释了延误原因。' },
+  { g:'描述人与态度', w:'reserved', p:'/rɪˈzɜːvd/', t:'adj.', c:'内向寡言的', e:'He is reserved at first, but talks freely once he knows you.', ec:'他一开始很内向，熟了之后话就多了。' },
+  { g:'描述人与态度', w:'sceptical', p:'/ˈskeptɪkl/', t:'adj.', c:'怀疑的', e:'Many scientists remain sceptical about the claims made in the advertisement.', ec:'许多科学家对广告里的说法仍持怀疑态度。' },
+  { g:'描述人与态度', w:'tactful', p:'/ˈtæktfl/', t:'adj.', c:'圆融得体的', e:'It took a tactful manager to deliver the criticism without insulting anyone.', ec:'要一个懂分寸的管理者，才能在提批评时不得罪人。' },
+  { g:'描述人与态度', w:'tentative', p:'/ˈtentətɪv/', t:'adj.', c:'暂定的；试探性的', e:'They reached a tentative agreement that still needs approval from both sides.', ec:'他们达成了一个暂定协议，还需双方批准。' },
+  { g:'描述人与态度', w:'versatile', p:'/ˈvɜːsətaɪl/', t:'adj.', c:'多才多艺的；多用途的', e:'Bamboo is a versatile material, used for everything from flooring to paper.', ec:'竹子用途很广，从地板到纸张都用得上。' },
+
+  { g:'经济与社会', w:'subsidy', p:'/ˈsʌbsədi/', t:'n.', c:'补贴', e:'Farmers rely on government subsidies to survive a bad harvest.', ec:'农民靠政府补贴才能熬过歉收的年份。' },
+  { g:'经济与社会', w:'inflation', p:'/ɪnˈfleɪʃn/', t:'n.', c:'通货膨胀', e:'Rising food prices pushed inflation to its highest level in a decade.', ec:'食品涨价把通胀推到了十年来的最高点。' },
+  { g:'经济与社会', w:'deficit', p:'/ˈdefɪsɪt/', t:'n.', c:'赤字；亏损', e:'The city is running a deficit for the third year in a row.', ec:'这个城市连续第三年出现赤字。' },
+  { g:'经济与社会', w:'revenue', p:'/ˈrevənjuː/', t:'n.', c:'收入；税收', e:'Advertising accounts for nearly half of annual newspaper revenue.', ec:'广告占了报纸年收入的近一半。' },
+  { g:'经济与社会', w:'consumption', p:'/kənˈsʌmpʃn/', t:'n.', c:'消费；消耗', e:'Household consumption fell sharply after electricity prices rose.', ec:'电价上涨后，家庭消费明显下降。' },
+  { g:'经济与社会', w:'inequality', p:'/ˌɪnɪˈkwɒləti/', t:'n.', c:'不平等', e:'Widening income inequality has become a central issue in the election.', ec:'收入差距扩大已成为这次选举的核心议题。' },
+  { g:'经济与社会', w:'urbanisation', p:'/ˌɜːbənaɪˈzeɪʃn/', t:'n.', c:'城市化', e:'Rapid urbanisation has left many young workers without affordable housing.', ec:'快速城市化让许多年轻劳动者买不起、租不起房。' },
+  { g:'经济与社会', w:'welfare', p:'/ˈwelfeə(r)/', t:'n.', c:'福利；福祉', e:'The reform aims to move people from welfare into paid work.', ec:'这项改革意在让人从领福利转向有薪工作。' },
+  { g:'经济与社会', w:'legislation', p:'/ˌledʒɪsˈleɪʃn/', t:'n.', c:'立法；法规', e:'New legislation requires companies to report their carbon emissions.', ec:'新法规要求企业上报自身的碳排放。' },
+  { g:'经济与社会', w:'scarcity', p:'/ˈskeəsəti/', t:'n.', c:'稀缺', e:'The scarcity of clean water is likely to shape conflicts this century.', ec:'清洁水资源的稀缺很可能塑造本世纪的冲突。' },
+  { g:'经济与社会', w:'incentive', p:'/ɪnˈsentɪv/', t:'n.', c:'激励；诱因', e:'Tax breaks provide an incentive for firms to invest in cleaner technology.', ec:'税收减免给企业投资清洁技术提供了动力。' },
+  { g:'经济与社会', w:'monopoly', p:'/məˈnɒpəli/', t:'n.', c:'垄断', e:'The company was fined for abusing its monopoly in the search market.', ec:'这家公司因滥用搜索市场的垄断地位被罚款。' },
+  { g:'经济与社会', w:'expenditure', p:'/ɪkˈspendɪtʃə(r)/', t:'n.', c:'支出', e:'Public expenditure on health has doubled in real terms since 2000.', ec:'自 2000 年以来，医疗卫生的公共支出实际翻了一倍。' },
+  { g:'经济与社会', w:'migration', p:'/maɪˈɡreɪʃn/', t:'n.', c:'迁移；移居', e:'Rural migration to coastal cities has reshaped the national labour force.', ec:'从农村涌向沿海城市的迁移重塑了全国劳动力结构。' },
+  { g:'经济与社会', w:'privilege', p:'/ˈprɪvəlɪdʒ/', t:'n.', c:'特权；荣幸', e:'Access to a quiet place to study is a privilege many students never have.', ec:'有个安静的地方学习，是很多学生从来不曾拥有的特权。' },
+  { g:'经济与社会', w:'recession', p:'/rɪˈseʃn/', t:'n.', c:'经济衰退', e:'Small businesses were the first to suffer when the recession hit.', ec:'衰退一来，最先受损的是小企业。' },
+  { g:'经济与社会', w:'transparency', p:'/trænsˈpærənsi/', t:'n.', c:'透明；透明度', e:'Donors demanded greater transparency about how the money was spent.', ec:'捐赠者要求更透明地说明钱花到哪里去了。' },
+
+  { g:'科技与环境', w:'automate', p:'/ˈɔːtəmeɪt/', t:'v.', c:'使自动化', e:'Factories have automated most of the work that once required skilled hands.', ec:'工厂把过去需要熟练工人的活儿大部分自动化了。' },
+  { g:'科技与环境', w:'renewable', p:'/rɪˈnjuːəbl/', t:'adj.', c:'可再生的', e:'Renewable energy now supplies a third of the electricity used nationally.', ec:'可再生能源现在供应了全国三分之一的用电。' },
+  { g:'科技与环境', w:'emission', p:'/ɪˈmɪʃn/', t:'n.', c:'排放；排放物', e:'Cutting emissions from transport is harder than cleaning up power stations.', ec:'削减交通排放比整治发电厂更难。' },
+  { g:'科技与环境', w:'biodiversity', p:'/ˌbaɪəʊdaɪˈvɜːsəti/', t:'n.', c:'生物多样性', e:'The loss of biodiversity is harder to reverse than climate change itself.', ec:'生物多样性的丧失比气候变化本身更难逆转。' },
+  { g:'科技与环境', w:'algorithm', p:'/ˈælɡərɪðəm/', t:'n.', c:'算法', e:'The algorithm decides which posts you see, and therefore what you believe.', ec:'算法决定了你能看到哪些帖子，也决定了你信什么。' },
+  { g:'科技与环境', w:'surveillance', p:'/səˈveɪləns/', t:'n.', c:'监控', e:'City cameras offer convenience, but they also extend the reach of surveillance.', ec:'城市摄像头带来便利，也扩大了监控的范围。' },
+  { g:'科技与环境', w:'degradation', p:'/ˌdeɡrəˈdeɪʃn/', t:'n.', c:'退化；恶化', e:'Soil degradation has made large areas of farmland unproductive.', ec:'土壤退化让大片农田失去了产能。' },
+  { g:'科技与环境', w:'conservation', p:'/ˌkɒnsəˈveɪʃn/', t:'n.', c:'（自然）保护', e:'Conservation groups have bought land along the river to protect the wetlands.', ec:'保护组织买下了沿河的土地来守护湿地。' },
+  { g:'科技与环境', w:'sustainable', p:'/səˈsteɪnəbl/', t:'adj.', c:'可持续的', e:'A sustainable fishing industry depends on limits, not on better nets.', ec:'可持续的渔业靠的是限额，不是更好的渔网。' },
+  { g:'科技与环境', w:'interface', p:'/ˈɪntəfeɪs/', t:'n.', c:'界面；接口', e:'A good interface hides its complexity instead of advertising it.', ec:'好的界面把复杂藏起来，而不是向你炫耀。' },
+  { g:'科技与环境', w:'prototype', p:'/ˈprəʊtətaɪp/', t:'n.', c:'原型', e:'The first prototype was too heavy to carry, let alone sell.', ec:'第一台原型重得根本带不动，更别说卖了。' },
+  { g:'科技与环境', w:'encryption', p:'/ɪnˈkrɪpʃn/', t:'n.', c:'加密', e:'Without encryption, every message you send is readable in transit.', ec:'没有加密，你发的每条消息在传输途中都能被读到。' },
+  { g:'科技与环境', w:'habitat', p:'/ˈhæbɪtæt/', t:'n.', c:'栖息地', e:'Draining the marsh destroyed the habitat of several rare birds.', ec:'把沼泽排干，毁掉了好几种珍稀鸟类的栖息地。' },
+  { g:'科技与环境', w:'pollutant', p:'/pəˈluːtənt/', t:'n.', c:'污染物', e:'The river still carries pollutants from farms upstream.', ec:'这条河仍然带着上游农场的污染物。' },
+  { g:'科技与环境', w:'bandwidth', p:'/ˈbændwɪdθ/', t:'n.', c:'带宽', e:'Limited bandwidth makes video lessons almost unusable in rural schools.', ec:'带宽有限，农村学校的视频课几乎上不下去。' },
+  { g:'科技与环境', w:'obsolescence', p:'/ˌɒbsəˈlesns/', t:'n.', c:'过时；淘汰', e:'Planned obsolescence keeps consumers buying devices they do not need.', ec:'有计划地淘汰，让消费者不断买并不需要的设备。' },
+  { g:'科技与环境', w:'resilience', p:'/rɪˈzɪliəns/', t:'n.', c:'韧性；恢复力', e:'Coastal cities are investing in resilience against rising sea levels.', ec:'沿海城市正在投资提升应对海平面上升的韧性。' },
+
+  { g:'逻辑连接词', w:'nevertheless', p:'/ˌnevəðəˈles/', t:'adv.', c:'然而；尽管如此', e:'The plan is expensive; nevertheless, it may be the only option left.', ec:'这个方案很花钱，但也许是唯一剩下的选择。' },
+  { g:'逻辑连接词', w:'nonetheless', p:'/ˌnʌnðəˈles/', t:'adv.', c:'尽管如此', e:'The evidence is thin; nonetheless, the theory explains a great deal.', ec:'证据薄弱，尽管如此，这个理论解释了很多现象。' },
+  { g:'逻辑连接词', w:'conversely', p:'/ˈkɒnvɜːsli/', t:'adv.', c:'相反地', e:'Cities offer more jobs; conversely, they also demand far higher rents.', ec:'城市提供更多工作，反过来，房租也高得多。' },
+  { g:'逻辑连接词', w:'whereas', p:'/ˌweərˈæz/', t:'conj.', c:'而（表示对比）', e:'Some students learn by listening, whereas others need to read and write.', ec:'有些学生靠听来学，另一些则必须读写才行。' },
+  { g:'逻辑连接词', w:'thereby', p:'/ˌðeəˈbaɪ/', t:'adv.', c:'从而', e:'The company cut its staff by a third, thereby saving money and losing talent.', ec:'公司裁掉三分之一员工，从而省了钱，也失了人才。' },
+  { g:'逻辑连接词', w:'hence', p:'/hens/', t:'adv.', c:'因此', e:'The data were incomplete; hence the cautious conclusion of the report.', ec:'数据不完整，因此报告给出的结论很谨慎。' },
+  { g:'逻辑连接词', w:'accordingly', p:'/əˈkɔːdɪŋli/', t:'adv.', c:'相应地；因此', e:'Prices changed, and the budget was adjusted accordingly.', ec:'价格变了，预算也相应做了调整。' },
+  { g:'逻辑连接词', w:'alternatively', p:'/ɔːlˈtɜːnətɪvli/', t:'adv.', c:'或者（另一种选择）', e:'You can email us; alternatively, drop by the office on Tuesday.', ec:'你可以发邮件，或者周二顺便来办公室。' },
+  { g:'逻辑连接词', w:'moreover', p:'/mɔːrˈəʊvə(r)/', t:'adv.', c:'而且；此外', e:'The building is cheap to run; moreover, it sits on the best site in town.', ec:'这栋楼运营成本低，而且坐落在城里最好的地段。' },
+  { g:'逻辑连接词', w:'subsequently', p:'/ˈsʌbsɪkwəntli/', t:'adv.', c:'随后', e:'He was hired in March and subsequently promoted twice in one year.', ec:'他三月入职，随后一年内升了两次。' },
+  { g:'逻辑连接词', w:'meanwhile', p:'/ˈmiːnwaɪl/', t:'adv.', c:'与此同时', e:'The north rebuilt quickly; meanwhile, the south still waits for help.', ec:'北方重建得很快，与此同时南方还在等援助。' },
+  { g:'逻辑连接词', w:'notwithstanding', p:'/ˌnɒtwɪθˈstændɪŋ/', t:'prep.', c:'尽管', e:'Notwithstanding the criticism, the reform has cut waiting times.', ec:'尽管有批评，这项改革确实缩短了等待时间。' },
+  { g:'逻辑连接词', w:'whereby', p:'/weəˈbaɪ/', t:'adv.', c:'凭借…；据此', e:'They set up a system whereby students can rate their own progress.', ec:'他们建立了一套制度，让学生据此评估自己的进步。' },
+  { g:'逻辑连接词', w:'albeit', p:'/ˌɔːlˈbiːɪt/', t:'conj.', c:'尽管（后接短语）', e:'The recovery is real, albeit slow and uneven across the regions.', ec:'复苏是真的，尽管缓慢且各地不均衡。' },
+  { g:'逻辑连接词', w:'thus', p:'/ðʌs/', t:'adv.', c:'因此；如此', e:'The soil was exhausted; thus, yields fell for three years running.', ec:'土壤肥力耗尽，因此连续三年减产。' },
+  { g:'逻辑连接词', w:'thereafter', p:'/ˌðeərˈɑːftə(r)/', t:'adv.', c:'此后', e:'The storm passed; thereafter, the town rebuilt with stronger roofs.', ec:'风暴过去了，此后小镇重建时把屋顶造得更结实。' },
+
+  { g:'情绪与心理', w:'anxiety', p:'/æŋˈzaɪəti/', t:'n.', c:'焦虑', e:'Exam anxiety can be reduced by practising under the same conditions.', ec:'在相同条件下练习，可以减轻考试焦虑。' },
+  { g:'情绪与心理', w:'resentment', p:'/rɪˈzentmənt/', t:'n.', c:'怨恨；不满', e:'Unpaid overtime slowly builds resentment among the staff.', ec:'无偿加班会在员工中慢慢积累不满。' },
+  { g:'情绪与心理', w:'empathy', p:'/ˈempəθi/', t:'n.', c:'共情；同理心', e:'Good doctors combine technical skill with genuine empathy.', ec:'好医生把技术能力和真正的同理心结合在一起。' },
+  { g:'情绪与心理', w:'frustration', p:'/frʌˈstreɪʃn/', t:'n.', c:'挫败感', e:'The repeated delays caused frustration on both sides of the table.', ec:'一再的延误让谈判双方都很挫败。' },
+  { g:'情绪与心理', w:'nostalgia', p:'/nɒˈstældʒə/', t:'n.', c:'怀旧', e:'Nostalgia for the old town has slowed down plans to rebuild it.', ec:'对老城的怀旧情绪拖慢了重建计划。' },
+  { g:'情绪与心理', w:'temptation', p:'/tempˈteɪʃn/', t:'n.', c:'诱惑', e:'The phone on your desk is a constant temptation to stop working.', ec:'桌上的手机一直在诱惑你停下手上的活。' },
+  { g:'情绪与心理', w:'vulnerability', p:'/ˌvʌlnərəˈbɪləti/', t:'n.', c:'脆弱；易受伤害', e:'Admitting uncertainty is a kind of vulnerability that many leaders avoid.', ec:'承认不确定是一种脆弱，而很多领导人都回避它。' },
+  { g:'情绪与心理', w:'anticipation', p:'/ænˌtɪsɪˈpeɪʃn/', t:'n.', c:'期待；预期', e:'The weeks before the results were full of quiet anticipation.', ec:'出成绩前的几个星期里，满是安静的期待。' },
+  { g:'情绪与心理', w:'guilt', p:'/ɡɪlt/', t:'n.', c:'内疚；负罪感', e:'He felt a vague guilt about leaving the project unfinished.', ec:'项目没做完就离开，他心里有种说不清的内疚。' },
+  { g:'情绪与心理', w:'burnout', p:'/ˈbɜːnaʊt/', t:'n.', c:'倦怠；精疲力竭', e:'Burnout rarely comes from a single hard week; it builds over months.', ec:'倦怠很少来自某一个辛苦的星期，它是几个月积累起来的。' },
+  { g:'情绪与心理', w:'self-esteem', p:'/ˌself ɪˈstiːm/', t:'n.', c:'自尊', e:'Constant comparison with others can slowly damage self-esteem.', ec:'不断和别人比较，会慢慢损伤自尊。' },
+  { g:'情绪与心理', w:'curiosity', p:'/ˌkjʊəriˈɒsəti/', t:'n.', c:'好奇心', e:'Curiosity, more than talent, explains why some people keep learning.', ec:'比起天赋，好奇心更能解释为什么有些人能一直学下去。' },
+  { g:'情绪与心理', w:'apathy', p:'/ˈæpəθi/', t:'n.', c:'冷漠；无动于衷', e:'Years of broken promises produced apathy rather than protest.', ec:'多年空头承诺换来的是冷漠，而不是抗议。' },
+  { g:'情绪与心理', w:'apprehension', p:'/ˌæprɪˈhenʃn/', t:'n.', c:'忧虑；不安', e:'She felt some apprehension before her first day of teaching.', ec:'第一天上课前，她心里有些发怵。' },
+  { g:'情绪与心理', w:'irritation', p:'/ˌɪrɪˈteɪʃn/', t:'n.', c:'恼怒；刺激', e:'A slight irritation in his voice told us the meeting had gone badly.', ec:'他声音里那点恼怒说明这个会开得很糟。' },
+  { g:'情绪与心理', w:'composure', p:'/kəmˈpəʊʒə(r)/', t:'n.', c:'镇定；沉着', e:'She kept her composure when the questions turned hostile.', ec:'提问变得尖锐时，她依然保持镇定。' }
+];
+/* ---------------- 跟读 24 句：日常 / 职场 / 学术 各 8 ---------------- */
+
+const SHADOW = [
+  { g:'日常', e:'Could you give me a hand with this bag?', c:'你能帮我拿一下这个包吗？', l:'Could you 的 /d/ 和 /j/ 融合成 /dʒ/，读作「库朱」；give me 的 /v/ 直接连到 /m/，两词之间不要断。' },
+  { g:'日常', e:'I will pick something up on the way home.', c:'我回家路上顺便买点东西。', l:'pick something 的 /k/ 遇到 /s/ 只做口型、不送气（失去爆破）；句重音落在 up 上，不落在 pick 上。' },
+  { g:'日常', e:'Do you know where the nearest station is?', c:'你知道最近的车站在哪儿吗？', l:'Do you 压缩成 /dʒu/；where the 的 /r/ 要接上 the，读成 /weəðə/，不能两个词分开念。' },
+  { g:'日常', e:'It has been raining since Monday, has not it?', c:'从周一就一直在下雨，对吧？', l:'has not it 连成一串 /ˈhæzn̩tɪt/，末尾 /t/ 遇到 /ɪ/ 浊化近 /d/，听起来是「tɪt」而不是「tit」。' },
+  { g:'日常', e:'I would rather stay in and watch a film tonight.', c:'今晚我更想待在家里看部电影。', l:'I would rather 的 /d/ 与 /r/ 合成一个 /dr/；watch a 的 /tʃ/ 直接滑进 /ə/，读 /ˈwɒtʃə/。' },
+  { g:'日常', e:'Let me know if you need anything else.', c:'还需要别的什么就告诉我。', l:'let me 的 /t/ 完全脱落，读成 /lemi/；need anything 的 /d/ 连到 /e/，读 /ˈniːdeniθɪŋ/。' },
+  { g:'日常', e:'We should probably leave before it gets dark.', c:'我们最好在天黑前走。', l:'should probably 的 /d/ 遇 /p/ 只做口型、不出声；before it 的 /r/ 连读成 /bɪˈfɔːrɪt/。' },
+  { g:'日常', e:'How long does it take to get there?', c:'到那儿要多久？', l:'does it 连读成 /dʌzɪt/；get there 的 /t/ 遇 /ð/ 不完全爆破，听上去接近 /ɡeðeə/。' },
+
+  { g:'职场', e:'Sorry to interrupt, but the client is waiting.', c:'抱歉打断一下，客户在等。', l:'interrupt 末尾的 /t/ 遇到 but 的 /b/ 失去爆破，中间听不到 /t/；client is 连读成 /ˈklaɪəntɪz/。' },
+  { g:'职场', e:'Could we push the meeting back to Thursday?', c:'能把会议推到周四吗？', l:'push the 的 /ʃ/ 直接滑进 /ð/，读 /pʊʃðə/；back to 的 /k/ 遇 /t/ 只做口型，to 弱读成 /tə/。' },
+  { g:'职场', e:'I will send you the revised figures by Friday.', c:'我周五前把修订后的数字发你。', l:'send you 的 /d/ 与 /j/ 融合成 /dʒ/，读 /sendʒu/；figures by 的 /s/ 遇 /b/ 不爆破。' },
+  { g:'职场', e:'Let us run through the numbers one more time.', c:'我们再把数字过一遍。', l:'run through 的 /n/ 接 /θ/ 要连，读 /rʌnθruː/；numbers one 的 /z/ 接 /w/，读 /ˈnʌmbəzwʌn/。' },
+  { g:'职场', e:'We need to follow up on that email today.', c:'今天得跟进那封邮件。', l:'follow up on 三个词连成一串 /ˈfɒləʊʌpɒn/，中间不停；that email 的 /t/ 脱落，读 /ðæˈtiːmeɪl/。' },
+  { g:'职场', e:'I am afraid I cannot make the deadline this week.', c:'恐怕这周赶不上截止时间了。', l:'afraid I 的 /d/ 连到 /aɪ/，读 /əˈfreɪdaɪ/；cannot make 的 /t/ 遇 /m/ 只做口型、不出声。' },
+  { g:'职场', e:'Thanks for covering for me while I was out.', c:'谢谢你在我外出时帮我顶着。', l:'两个 for 都弱读成 /fə/；while I 的 /l/ 接 /aɪ/，读 /waɪlaɪ/，不要念成两个独立的词。' },
+  { g:'职场', e:'Let me check with my team and get back to you.', c:'我跟团队确认一下再回复你。', l:'check with 的 /k/ 接 /w/，读 /tʃekwɪð/；get back to 的 /t/ 浊化近 /d/，to 弱读成 /tə/。' },
+
+  { g:'学术', e:'The data suggest a strong correlation between the two variables.', c:'数据表明这两个变量之间强相关。', l:'suggest a 的 /t/ 遇 /ə/ 变闪音，读 /səˈdʒestə/；between the 的 /n/ 连到 /ð/，不要停。' },
+  { g:'学术', e:'This paper argues that the earlier findings were overstated.', c:'本文认为早先的研究结论被夸大了。', l:'argues that 的 /z/ 接 /ð/，两个音连成一个长擦音；findings were 的 /z/ 接 /w/，读 /ˈfaɪndɪŋzwɜː/。' },
+  { g:'学术', e:'As we can see, the trend reverses after 2015.', c:'可以看到，趋势在 2015 年之后反转。', l:'as we 的 /z/ 接 /w/，读 /əzwi/；see the 的 /iː/ 直接连到 /ð/，读 /siːðə/，中间不换气。' },
+  { g:'学术', e:'The results are consistent with the hypothesis we proposed.', c:'结果与我们提出的假设一致。', l:'results are 的 /ts/ 接 /ə/ 连成一串，读 /rɪˈzʌltsə/；with the 的两个 /ð/ 合并成一个长音。' },
+  { g:'学术', e:'One limitation is that the sample was relatively small.', c:'一个局限是样本量相对较小。', l:'limitation is 的 /n/ 接 /ɪ/，读 /ˌlɪmɪˈteɪʃnɪz/；that the 的 /t/ 失去爆破，只剩口型。' },
+  { g:'学术', e:'There is little agreement on how the term should be defined.', c:'对于这个术语该如何界定，几乎没有共识。', l:'agreement on 的 /t/ 连到 /ɒ/，读 /əˈɡriːməntɒn/；term should 的 /m/ 接 /ʃ/，读 /tɜːmʃʊd/。' },
+  { g:'学术', e:'In contrast, the second group showed almost no improvement.', c:'相比之下，第二组几乎没有进步。', l:'showed almost 的 /d/ 连到 /ɔː/；almost no 的 /t/ 遇 /n/ 失去爆破，听不到 /t/。' },
+  { g:'学术', e:'I would like to draw your attention to the third column.', c:'我想请大家注意第三列。', l:'draw your 之间加一个滑音 /j/，读 /drɔːjɔː/；attention to 的 to 弱读成 /tə/，读 /əˈtenʃntə/。' }
+];
+
+/* ---------------- 精读 4 篇，每篇 6 句 ---------------- */
+
+const PASSAGES = [
+  {
+    t:'拖延不是时间问题',
+    s:[
+      { e:'Procrastination is usually described as poor time management, but it is closer to a way of escaping an unpleasant emotion.', c:'拖延通常被说成时间管理差，其实它更像一种逃避不愉快情绪的方式。', k:['be described as','be closer to','a way of doing sth'] },
+      { e:'When a task makes you anxious or bored, putting it off brings immediate relief, and that relief teaches your brain to repeat the trick.', c:'当一件事让你焦虑或厌烦时，往后拖能立刻带来解脱感，而这种解脱教会大脑重复这个把戏。', k:['put sth off','bring relief','teach sb to do sth'] },
+      { e:'The problem is that the relief lasts minutes, while the task waits and grows heavier in the background.', c:'问题在于解脱只持续几分钟，而任务就在背后等着，并且越变越重。', k:['the problem is that','last minutes','grow heavier'] },
+      { e:'Researchers have found that self-forgiveness after a delay works better than self-criticism, because guilt tends to push people back into avoidance.', c:'研究者发现，拖延之后原谅自己比自责更管用，因为内疚往往把人推回逃避。', k:['self-forgiveness','work better than','tend to'] },
+      { e:'A more reliable strategy is to shrink the first step until it feels almost silly, such as opening the document and writing one sentence.', c:'更可靠的办法是把第一步缩到近乎可笑的程度，比如打开文档写一句话。', k:['a reliable strategy','shrink the first step','such as'] },
+      { e:'Once you have started, the task usually loses the power it had when it was only imagined.', c:'一旦开始，任务通常会失去它只在想象中时才有的那股威压。', k:['once you have done','lose the power','it had when'] }
+    ]
+  },
+  {
+    t:'便利的代价',
+    s:[
+      { e:'Convenience is rarely free; it is usually paid for by someone whose time is cheaper than yours.', c:'便利很少是免费的，通常由某个时间比你便宜的人来买单。', k:['be rarely free','pay for','whose time is cheaper'] },
+      { e:'When a meal arrives in twenty minutes, the cost hides in underpaid riders, disposable packaging and a supply chain nobody sees.', c:'当一顿饭二十分钟送到，成本藏在报酬过低的骑手、一次性包装和无人看见的供应链里。', k:['the cost hides in','underpaid','a supply chain nobody sees'] },
+      { e:'The same pattern appears in software: free services are not free, because your attention is sold to advertisers.', c:'软件里也是同一套模式：免费服务并不免费，因为你的注意力被卖给了广告商。', k:['the same pattern appears','not free','be sold to'] },
+      { e:'This is not an argument for going back to slower days; it is a reminder that every shortcut moves the cost somewhere else.', c:'这并不是主张回到更慢的年代，而是提醒：每一条捷径都把成本挪到了别处。', k:['an argument for doing','a reminder that','move the cost'] },
+      { e:'The useful question is not whether a thing is convenient, but who pays for the convenience when it is delivered.', c:'有用的问法不是这东西方不方便，而是当它送到你手上时，谁在为这份方便付费。', k:['the useful question is','whether… or…','when it is delivered'] },
+      { e:'Once you start asking that question, some conveniences look cheaper than they did, and others look far more expensive.', c:'一旦开始这样问，有些便利看起来比过去更划算，另一些则昂贵得多。', k:['start doing sth','cheaper than they did','far more expensive'] }
+    ]
+  },
+  {
+    t:'远程办公得到了什么，失去了什么',
+    s:[
+      { e:'Remote work was sold as a way to cut commuting and gain freedom, and for many people it delivered exactly that.', c:'远程办公当初被推销成省通勤、得自由的办法，对很多人来说它确实做到了。', k:['be sold as','cut commuting','deliver exactly that'] },
+      { e:'What it did not deliver was the accidental conversation that used to happen by the coffee machine.', c:'它没有兑现的，是那种过去在咖啡机旁偶然发生的对话。', k:['what it did not deliver','used to happen','by the coffee machine'] },
+      { e:'Teams that moved online discovered that information which once spread by overhearing now had to be written down.', c:'搬到线上的团队发现，过去靠听说传播的信息，现在必须写下来。', k:['move online','spread by overhearing','had to be written down'] },
+      { e:'Writing things down turned out to be a hidden benefit: decisions became visible, and newcomers could read their way into the culture.', c:'写下来反而成了意外的好处：决策变得可见，新人可以靠读文档进入这门文化。', k:['turn out to be','a hidden benefit','read one way into'] },
+      { e:'The difficulty came later, when companies tried to bring people back without losing the flexibility they had promised.', c:'难处出现在后来：公司想把人叫回办公室，又不愿丢掉当初承诺的灵活。', k:['the difficulty came when','try to do sth','the flexibility they had promised'] },
+      { e:'Most sensible arrangements now sit somewhere in between, with fixed days for meeting and long blocks for work that needs silence.', c:'如今多数合理的安排都落在中间地带：固定几天碰面，留出长段不受打扰的时间做事。', k:['sit somewhere in between','fixed days for','blocks of time'] }
+    ]
+  },
+  {
+    t:'记忆是重建，不是回放',
+    s:[
+      { e:'Memory is not a recording but a reconstruction, and every time you recall something you rebuild it from fragments.', c:'记忆不是录像而是重建，每次回想，你都在用碎片把它重新拼起来。', k:['not A but B','recall','rebuild from fragments'] },
+      { e:'This is why two people can remember the same evening in ways that cannot both be accurate.', c:'这就是为什么两个人回忆同一个晚上，两种说法不可能都准确。', k:['this is why','in ways that','cannot both be'] },
+      { e:'Retrieval, rather than repetition, is what strengthens a memory; testing yourself beats reading notes again.', c:'强化记忆靠的是提取而不是重复：自测胜过把笔记再读一遍。', k:['rather than','be what strengthens','beats doing sth'] },
+      { e:'Forgetting is not always a fault, either: a brain that kept every detail would be unable to pick out what matters.', c:'遗忘也不总是缺陷：一个记住所有细节的大脑，反而挑不出什么才是重要的。', k:['not always a fault','keep every detail','pick out'] },
+      { e:'Sleep appears to play a part, sorting the experiences of the day and moving the important ones into longer storage.', c:'睡眠似乎也参与其中：整理当天的经历，把重要的部分移入更长期的存储。', k:['play a part','sort','move sth into'] },
+      { e:'So the practical advice is unglamorous: test yourself, space the tests out, and let sleep finish the work.', c:'所以实用的建议并不好听：自测、把自测间隔拉开，剩下的交给睡眠。', k:['practical advice','space sth out','let sb do sth'] }
+    ]
+  }
+];
+
+/* ---------------- 精读释义表：文章里值得点开的词 ---------------- */
+
+const GLOSS = {
+  procrastination: '拖延', emotion: '情绪', relief: '解脱感', anxiety: '焦虑',
+  forgiveness: '宽恕', criticism: '批评', avoidance: '逃避', strategy: '策略',
+  shrink: '缩小（把…变小）', imagined: '只存在于想象中的',
+
+  convenience: '便利', rarely: '很少', underpaid: '报酬过低的', disposable: '一次性的（用完就扔）',
+  supply: '供应', advertisers: '广告商', shortcut: '捷径', reminder: '提醒',
+  delivered: '被送达', expensive: '昂贵的',
+
+  remote: '远程的', commuting: '通勤', accidental: '偶然的、意外的', overhearing: '无意中听到',
+  visible: '可见的', newcomers: '新来的人', flexibility: '灵活性', arrangements: '安排',
+  blocks: '（整段）时间块', silence: '安静',
+
+  recording: '录音、录像', reconstruction: '重建', fragments: '碎片', accurate: '准确的',
+  retrieval: '提取（回忆的动作）', repetition: '重复', strengthens: '使…变强',
+  unglamorous: '不好听的、不打眼的', storage: '存储', detail: '细节',
+
+  /* 第二批：把文章里的实词尽量收全，点下去别空手 */
+  usually: '通常', describe: '描述', management: '管理', closer: '更接近', escape: '逃避',
+  unpleasant: '不愉快的', anxious: '焦虑的', bored: '厌烦的', immediate: '立刻的', teach: '教会',
+  brain: '大脑', repeat: '重复', trick: '花招、把戏', last: '持续', grow: '变得',
+  heavier: '更重的', background: '背景', researcher: '研究者', found: '发现（find 的过去式）',
+  delay: '拖延、延误', work: '起作用', tend: '倾向于', push: '推', reliable: '可靠的',
+  step: '步骤', silly: '可笑的', open: '打开', document: '文档', sentence: '句子',
+  lose: '失去', power: '力量', paid: '付费的', meal: '一顿饭', arrive: '送到',
+  cost: '成本', hide: '藏', rider: '骑车送单的人', packaging: '包装', chain: '链条',
+  pattern: '模式', appear: '出现', software: '软件', service: '服务', attention: '注意力',
+  sold: '被卖掉', argument: '论点', slower: '更慢的', useful: '有用的', question: '问题',
+  convenient: '方便的', pays: '付钱（pay 的第三人称）', ask: '提问', gain: '获得', freedom: '自由',
+  exactly: '正是、恰好', deliver: '兑现', conversation: '对话', machine: '机器', team: '团队',
+  online: '线上', discover: '发现', information: '信息', spread: '传播', written: '写下来的',
+  benefit: '好处', decision: '决定', culture: '文化', difficulty: '困难', company: '公司',
+  try: '试图', promise: '承诺', sensible: '合理的', fixed: '固定的',
+  meeting: '开会', memory: '记忆', recall: '回想', something: '某事、某物', rebuild: '重建',
+  remember: '记得', evening: '晚上', way: '方式', cannot: '不能', rather: '而不是',
+  test: '测试', yourself: '你自己', beat: '胜过', read: '阅读', note: '笔记',
+  forgetting: '遗忘', fault: '缺陷', kept: '保留（keep 的过去式）', unable: '无法',
+  pick: '挑出', matter: '重要', sort: '整理', experience: '经历', important: '重要的',
+  practical: '实用的', advice: '建议', finish: '完成', space: '把间隔拉开'
+};
+
+/* ---------------- 语法 4 条 ---------------- */
+
+const GRAMMAR = [
+  {
+    t:'一般现在时 vs 现在进行时',
+    s:'习惯与此刻，别混用',
+    f:'习惯、规律、大实话 → 一般现在时；此刻正在发生 → be + doing。看到 every day / usually / always 用前者，看到 now / look! / at the moment 用后者。',
+    ex:[
+      { en:'I study English every morning.', cn:'我每天早上学英语。（习惯）' },
+      { en:'I am studying English right now.', cn:'我现在正在学英语。（此刻）' }
+    ],
+    err:'know / like / want / belong 这类"状态动词"不用进行时。✕ I am knowing the answer. → ✓ I know the answer.',
+    q:[
+      { t:'She ___ to work by bus every day.', o:['goes','is going'], a:0, why:'every day 是习惯信号，用一般现在时。' },
+      { t:'Look, it ___ outside.', o:['rains','is raining'], a:1, why:'Look! 是"此刻"信号，用 be + doing。' }
+    ]
+  },
+  {
+    t:'冠词 a / an / the / 不加',
+    s:'三个空，三套判断',
+    f:'第一次提到某人某物 → a / an（元音音素前用 an）；双方都知道是哪一个、或上文已经提到 → the；泛指一类、或复数泛指 → 不加冠词。',
+    ex:[
+      { en:'I bought an umbrella. The umbrella is blue.', cn:'我买了把伞。那把伞是蓝的。（第一次 a/an，第二次 the）' },
+      { en:'I like music.', cn:'我喜欢音乐。（泛指一类，不加）' }
+    ],
+    err:'✕ I like the music. → ✓ I like music.（表泛指一类时不加 the）',
+    q:[
+      { t:'I bought ___ umbrella yesterday.', o:['a','an','the'], a:1, why:'umbrella 以元音音素 /ʌ/ 开头，用 an。' },
+      { t:'I like ___ music.', o:['a','the','不加'], a:2, why:'泛指一类东西，不加冠词。' }
+    ]
+  },
+  {
+    t:'现在完成时 vs 一般过去时',
+    s:'有没有具体过去时间，是分水岭',
+    f:'have done 说的是"到现在为止的结果"，常跟 already / yet / ever / just / since / for 连用。句子里有明确的过去时间（yesterday、last year、in 2019），只用过去时。',
+    ex:[
+      { en:'I have lost my keys. I cannot get in.', cn:'我钥匙丢了。（现在进不去——强调结果）' },
+      { en:'I lost my keys yesterday.', cn:'我昨天丢的钥匙。（有明确过去时间）' }
+    ],
+    err:'✕ I have seen him yesterday. → ✓ I saw him yesterday.（yesterday 出现就用过去时）',
+    q:[
+      { t:'I ___ my keys. I cannot get in.', o:['lost','have lost'], a:1, why:'强调对现在的影响，用现在完成时。' },
+      { t:'Have you ever ___ to Japan?', o:['went','been','go'], a:1, why:'have been to 表示"去过"，是固定搭配。' }
+    ]
+  },
+  {
+    t:'定语从句 who / which / that',
+    s:'指人指物，还有一个逗号陷阱',
+    f:'指人用 who，指物用 which，that 两者都能用。但逗号后面只能用 which / who，绝不能用 that。',
+    ex:[
+      { en:'The man who lives next door is a teacher.', cn:'住隔壁的那个男人是老师。' },
+      { en:'This is the book that changed my mind.', cn:'就是这本书改变了我的想法。' }
+    ],
+    err:'✕ My phone, that I bought last year, is broken. → ✓ My phone, which I bought last year, is broken.',
+    q:[
+      { t:'The man ___ lives next door is a teacher.', o:['who','which','what'], a:0, why:'先行词是 man（人），用 who。' },
+      { t:'My phone, ___ I bought last year, is broken.', o:['that','which','who'], a:1, why:'逗号后面不能用 that，指物用 which。' }
+    ]
+  }
+];
+
+/* ---------------- 写作模板 3 篇 ---------------- */
+
+const WRITING = [
+  {
+    t:'正式邮件：开头 + 结尾',
+    s:'给老师、教务、机构写邮件',
+    tpl:'Dear <b>Professor Chen</b>,\n\nI am writing to <b>ask about the assignment</b>. <b>I would be grateful for any advice.</b>\n\nI look forward to your reply.\n\nBest regards,\nWei',
+    note:'正式邮件里不写 I want to ask...，写 I am writing to ask...。一句话的差别，观感差一档。'
+  },
+  {
+    t:'议论文：让步段',
+    s:'想显得客观、有思辨',
+    tpl:'Admittedly, <b>online courses are convenient</b>. However, <b>they are not enough on their own</b>. This is because <b>learning needs feedback, not just access</b>.',
+    note:'Admittedly 后面写"对方的观点"，不是你的观点。写反了，整段就散了。'
+  },
+  {
+    t:'图表 / 观点：三句骨架',
+    s:'图表作文、口语谈趋势',
+    tpl:'The chart shows <b>a clear rise in study time</b>. The biggest change is <b>the jump between 2020 and 2022</b>. This suggests that <b>students are studying in shorter blocks</b>.',
+    note:'This suggests that 后面写推断，不要重复第一句里的数字。'
+  }
+];
+
+/* ---------------- 默认设置 ---------------- */
+
+const SETTINGS = { rate: 0.95, newPerDay: 8, sessionCap: 20 };
+
+/* ==========================================================================
+   LOGIC —— 引擎层（本阶段只做纯逻辑，不接界面、不碰 DOM）
+   一个命名空间 XU，不往 window 上挂任何东西。
+   ========================================================================== */
+
+const XU = (function () {
+  'use strict';
+
+  var KEY = 'xu.english.v1';
+
+  /* ---------- 日期：只走本地日历日，不碰时间戳 ---------- */
+  function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+  function today() {
+    var d = new Date();
+    return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
+  }
+  function addDays(day, n) {
+    var p = String(day).split('-');
+    var d = new Date(+p[0], +p[1] - 1, +p[2]);
+    d.setDate(d.getDate() + n);
+    return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
+  }
+  function diffDays(from, to) {
+    if (!from || !to) return 0;
+    var a = String(from).split('-'), b = String(to).split('-');
+    if (a.length < 3 || b.length < 3) return 0;
+    var x = Date.UTC(+a[0], +a[1] - 1, +a[2]);
+    var y = Date.UTC(+b[0], +b[1] - 1, +b[2]);
+    return Math.round((y - x) / 86400000);
+  }
+  function clamp(n, lo, hi) { return Math.max(lo, Math.min(hi, n)); }
+
+  /* ---------- 存储 ---------- */
+  var storageOK = true;
+
+  function blankDB() {
+    return {
+      v: 1,
+      prefs: { rate: SETTINGS.rate, newPerDay: SETTINGS.newPerDay },
+      lastStudyDate: null,
+      anchor: null,
+      words: {},
+      days: {},
+      today: { date: '', done: [], blocks: [] },
+      session: null,
+      read: {},
+      speak: {},
+      grammar: {}
+    };
+  }
+
+  function load() {
+    var base = blankDB();
+    var raw;
+    try { raw = localStorage.getItem(KEY); }
+    catch (e) { storageOK = false; return base; }      // 无痕模式：降级为内存态
+    if (!raw) return base;
+    var d;
+    try { d = JSON.parse(raw); }
+    catch (e) { return base; }                          // 数据坏了：当新用户，不抛
+    if (!d || typeof d !== 'object') return base;
+    var out = blankDB();
+    if (d.prefs && typeof d.prefs === 'object') {
+      if (typeof d.prefs.rate === 'number') out.prefs.rate = clamp(d.prefs.rate, 0.5, 1.5);
+      if (typeof d.prefs.newPerDay === 'number') out.prefs.newPerDay = clamp(d.prefs.newPerDay, 0, 12);
+    }
+    if (typeof d.lastStudyDate === 'string') out.lastStudyDate = d.lastStudyDate;
+    if (d.anchor && typeof d.anchor === 'object') out.anchor = d.anchor;
+    if (d.words && typeof d.words === 'object') out.words = d.words;
+    if (d.days && typeof d.days === 'object') out.days = d.days;
+    if (d.read && typeof d.read === 'object') out.read = d.read;
+    if (d.speak && typeof d.speak === 'object') out.speak = d.speak;
+    if (d.grammar && typeof d.grammar === 'object') out.grammar = d.grammar;
+    if (d.today && typeof d.today === 'object' && typeof d.today.date === 'string') {
+      out.today = {
+        date: d.today.date,
+        done: Array.isArray(d.today.done) ? d.today.done : [],
+        blocks: Array.isArray(d.today.blocks) ? d.today.blocks : []
+      };
+    }
+    if (d.session && typeof d.session === 'object' && Array.isArray(d.session.ids)) {
+      out.session = {
+        date: d.session.date || '',
+        ids: d.session.ids,
+        i: typeof d.session.i === 'number' ? d.session.i : 0,
+        graded: typeof d.session.graded === 'number' ? d.session.graded : 0
+      };
+    }
+    return out;
+  }
+
+  var db = load();
+
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(db)); }
+    catch (e) { storageOK = false; }                    // 配额满 / 无痕：不抛，但记账
+  }
+
+  /* ---------- SRS：四档，简化 SM-2 ---------- */
+  var GRADES = {
+    again: { q: 0, ease: -0.80, scale: 0 },
+    hard:  { q: 3, ease: -0.14, scale: 0.6 },
+    good:  { q: 4, ease: 0.00, scale: 1.0 },
+    easy:  { q: 5, ease: 0.10, scale: 1.3 }
+  };
+  var LADDER = [1, 3];          // 前两次间隔，避开 SM-2 的 1→6 天跳崖
+  var EASE_MIN = 1.3, EASE_MAX = 3.2, IV_MAX = 60, DAYS_KEEP = 60;
+
+  function blankCard() {
+    return { ease: 2.5, interval: 0, due: null, reps: 0, lapses: 0, last: null, lastGrade: null };
+  }
+
+  function normCard(c) {
+    if (!c || typeof c !== 'object') return blankCard();
+    return {
+      ease: typeof c.ease === 'number' ? c.ease : 2.5,
+      interval: typeof c.interval === 'number' ? c.interval : 0,
+      due: typeof c.due === 'string' ? c.due : null,
+      reps: typeof c.reps === 'number' ? c.reps : 0,
+      lapses: typeof c.lapses === 'number' ? c.lapses : 0,
+      last: typeof c.last === 'string' ? c.last : null,
+      lastGrade: typeof c.lastGrade === 'string' ? c.lastGrade : null
+    };
+  }
+
+  /* 纯函数：旧记录 + 档位 → 新记录 */
+  function nextState(card, grade, day) {
+    var c = normCard(card);
+    var g = GRADES[grade] || GRADES.good;
+
+    var overdue = c.due ? diffDays(c.due, day) : 0;
+    var amnesty = c.reps > 0 && overdue >= Math.max(3, c.interval);   // 断档免责
+
+    var ease = c.ease + (amnesty && g.ease < 0 ? Math.max(g.ease, -0.2) : g.ease);
+    ease = Math.round(clamp(ease, EASE_MIN, EASE_MAX) * 100) / 100;
+
+    var interval, reps;
+    if (g.q < 3) {
+      interval = 1;
+      reps = amnesty ? Math.max(1, c.reps - 1) : 0;
+    } else if (c.reps < LADDER.length) {
+      interval = LADDER[c.reps];
+      reps = c.reps + 1;
+    } else {
+      interval = clamp(Math.max(c.interval + 1, Math.round(c.interval * ease * g.scale)), 1, IV_MAX);
+      reps = c.reps + 1;
+    }
+
+    return {
+      ease: ease, interval: interval, reps: reps,
+      lapses: c.lapses + (g.q < 3 ? 1 : 0),
+      due: addDays(day, interval),
+      last: day,
+      lastGrade: grade
+    };
+  }
+
+  function previewDays(card, grade, day) {
+    return nextState(card, grade, day || today()).interval;
+  }
+
+  /* ---------- 断档分档 ---------- */
+  function gap(day) {
+    if (!db.lastStudyDate) return null;
+    var g = diffDays(db.lastStudyDate, day);
+    return g < 0 ? 0 : g;        // 时区/改表往回跳：钳到 0，不出现负数
+  }
+
+  function mode(day) {
+    var g = gap(day);
+    var newPerDay = clamp(db.prefs.newPerDay, 0, 12);
+    if (g === null) {
+      return { key: 'first', gap: null, newLimit: newPerDay, reviewCap: 12, blockCount: 3, familiarOnly: false };
+    }
+    if (g <= 1) {
+      return { key: 'normal', gap: g, newLimit: newPerDay, reviewCap: 12, blockCount: 3, familiarOnly: false };
+    }
+    if (g <= 6) {
+      return { key: 'return', gap: g, newLimit: 0, reviewCap: 7, blockCount: 2, familiarOnly: false };
+    }
+    return { key: 'restart', gap: g, newLimit: 0, reviewCap: 5, blockCount: 1, familiarOnly: true };
+  }
+
+  /* ---------- 取词 ---------- */
+  function dueIds(day) {
+    return Object.keys(db.words)
+      .filter(function (w) { return normCard(db.words[w]).due && diffDays(normCard(db.words[w]).due, day) >= 0; })
+      .sort(function (a, b) {
+        var da = normCard(db.words[a]).due, dbb = normCard(db.words[b]).due;
+        return da < dbb ? -1 : da > dbb ? 1 : 0;
+      });
+  }
+  function freshIds(n) {
+    if (n <= 0) return [];
+    var out = [];
+    for (var i = 0; i < WORDS.length && out.length < n; i++) {
+      if (!db.words[WORDS[i].w]) out.push(WORDS[i].w);
+    }
+    return out;
+  }
+  function familiarIds(n) {
+    return Object.keys(db.words)
+      .filter(function (w) { return normCard(db.words[w]).reps >= 2; })
+      .sort(function (a, b) {
+        var ra = normCard(db.words[a]), rb = normCard(db.words[b]);
+        return (rb.reps - ra.reps) || (rb.ease - ra.ease);
+      })
+      .slice(0, n);
+  }
+
+  function buildQueue(day) {
+    var m = mode(day);
+    var ids;
+    if (m.familiarOnly) {
+      ids = familiarIds(m.reviewCap);
+      if (!ids.length) ids = Object.keys(db.words).slice(0, m.reviewCap);   // 兜底：老用户但全是生词
+      if (!ids.length) ids = freshIds(m.reviewCap);                         // 再兜底：全新用户
+    } else {
+      var reviews = dueIds(day).slice(0, m.reviewCap);
+      var news = freshIds(m.newLimit);
+      ids = reviews.concat(news);
+      if (!ids.length) ids = freshIds(Math.min(m.reviewCap, db.prefs.newPerDay || 8));
+    }
+    return { ids: ids, mode: m };
+  }
+
+  /* ---------- 今日三块 ---------- */
+  function ensureDay(day) {
+    if (db.today.date !== day) {
+      db.today = { date: day, done: [], blocks: [] };
+      db.session = null;
+    }
+  }
+
+  function blocks(day) {
+    ensureDay(day);
+    if (db.today.blocks.length) return db.today.blocks;
+
+    var m = mode(day);
+    var q = buildQueue(day);
+    var out = [];
+
+    out.push({
+      id: 't1', mod: 'words', n: q.ids.length,
+      title: m.familiarOnly ? '找回手感' : '词',
+      sub: m.familiarOnly
+        ? ('最熟的 ' + q.ids.length + ' 个')
+        : (m.newLimit > 0 && q.ids.length > dueIds(day).slice(0, m.reviewCap).length
+            ? ('复习 + 新词，共 ' + q.ids.length + ' 个')
+            : ('复习 ' + q.ids.length + ' 个')),
+      minutes: m.familiarOnly ? 2 : 3
+    });
+
+    if (m.blockCount >= 2) {
+      out.push({ id: 't2', mod: 'speak', n: 1, title: '听说', sub: '一组 4 句，听、读、对一下', minutes: 3 });
+    }
+    if (m.blockCount >= 3) {
+      out.push({ id: 't3', mod: 'read', n: 1, title: '精读', sub: '一段就够，不要求读完', minutes: 3 });
+    }
+
+    db.today.blocks = out;
+    if (!db.session || db.session.date !== day) {
+      db.session = { date: day, ids: q.ids.slice(), i: 0, graded: 0 };
+    }
+    save();
+    return out;
+  }
+
+  function markDone(blockId, n) {
+    var day = today();
+    ensureDay(day);
+    if (db.today.done.indexOf(blockId) === -1) {     // 同一块一天只记一次，避免重复累加
+      db.today.done.push(blockId);
+      var b = null;
+      for (var i = 0; i < db.today.blocks.length; i++) if (db.today.blocks[i].id === blockId) b = db.today.blocks[i];
+      bump(day, b ? b.mod : 'words', n || 0);
+    }
+    return db.today.done.slice();
+  }
+
+  function bump(day, mod, n) {
+    if (!db.days[day]) db.days[day] = {};
+    db.days[day][mod] = (db.days[day][mod] || 0) + (n || 0);
+    db.lastStudyDate = day;
+    var keys = Object.keys(db.days).sort();
+    while (keys.length > DAYS_KEEP) { delete db.days[keys.shift()]; }
+    save();
+  }
+
+  function isDone(blockId) { return db.today.done.indexOf(blockId) !== -1; }
+  function allDone(day) {
+    var bs = blocks(day);
+    for (var i = 0; i < bs.length; i++) if (!isDone(bs[i].id)) return false;
+    return true;
+  }
+
+  /* ---------- 打分（单词） ---------- */
+  function grade(word, g, day) {
+    day = day || today();
+    var before = db.words[word];
+    var next = nextState(before, g, day);
+    db.words[word] = next;
+    bump(day, 'words', 1);
+    return next;
+  }
+
+  /* ---------- 精读 / 听说 / 语法 的进度 ---------- */
+  function markRead(passageId, sentences) {
+    var day = today();
+    var cur = db.read[passageId] || { sentences: 0, at: null };
+    db.read[passageId] = {
+      sentences: Math.max(cur.sentences || 0, sentences || 0),
+      at: day
+    };
+    bump(day, 'read', 1);
+    return db.read[passageId];
+  }
+  function markSpeak(segId, doneCount) {
+    var day = today();
+    var cur = db.speak[segId] || { sentences: 0, at: null };
+    var prev = cur.sentences || 0;
+    var next = Math.max(prev, doneCount || 0);      // 进度只前进，不回退
+    db.speak[segId] = { sentences: next, at: day };
+    if (next > prev) bump(day, 'speak', 1);         // 只有真正往前推了才算完成 1 句
+    return db.speak[segId];
+  }
+  function markGrammar(grammarId, right, total) {
+    var day = today();
+    var cur = db.grammar[grammarId] || { right: 0, total: 0, at: null };
+    db.grammar[grammarId] = {
+      right: (cur.right || 0) + (right || 0),
+      total: (cur.total || 0) + (total || 0),
+      at: day
+    };
+    bump(day, 'grammar', 1);
+    return db.grammar[grammarId];
+  }
+
+  /* ---------- 锚点：上次停在哪 ---------- */
+  function setAnchor(mod, label) {
+    db.anchor = { mod: mod, label: label, at: today() };
+    save();
+    return db.anchor;
+  }
+  function getAnchor() { return db.anchor; }
+
+  /* ---------- 统计（热力图 + 进度页） ---------- */
+  function heat(n) {
+    n = n || 14;
+    var out = [];
+    var d = today();
+    for (var i = n - 1; i >= 0; i--) {
+      var day = addDays(d, -i);
+      var rec = db.days[day] || {};
+      var total = 0;
+      for (var k in rec) if (Object.prototype.hasOwnProperty.call(rec, k)) total += rec[k];
+      out.push({ date: day, total: total, level: total === 0 ? 0 : (total < 8 ? 1 : 2), isToday: i === 0 });
+    }
+    return out;
+  }
+
+  function summary() {
+    var learned = Object.keys(db.words).length;
+    var mastered = Object.keys(db.words).filter(function (w) { return normCard(db.words[w]).reps >= 2; }).length;
+    var studyDays = Object.keys(db.days).length;
+    var readN = Object.keys(db.read).length;
+    return {
+      total: WORDS.length,
+      learned: learned,
+      mastered: mastered,
+      studyDays: studyDays,
+      readPassages: readN,
+      readTotal: PASSAGES.length,
+      speakSegments: Object.keys(db.speak).length,
+      grammarPoints: Object.keys(db.grammar).length
+    };
+  }
+
+  /* ---------- 导出 / 导入 ---------- */
+  function exportText() { return JSON.stringify(db, null, 2); }
+  function importText(txt) {
+    var d;
+    try { d = JSON.parse(txt); } catch (e) { return { ok: false, err: '不是合法的 JSON' }; }
+    if (!d || typeof d !== 'object' || typeof d.v !== 'number') return { ok: false, err: '不是这个应用导出的数据' };
+    try { localStorage.setItem(KEY, JSON.stringify(d)); db = load(); }
+    catch (e) { return { ok: false, err: '写入失败（可能是无痕模式）' }; }
+    return { ok: true };
+  }
+  function reset() {
+    db = blankDB();
+    save();
+    return db;
+  }
+
+  /* ---------- 对外 ---------- */
+  return {
+    KEY: KEY,
+    date: { today: today, addDays: addDays, diffDays: diffDays },
+    store: {
+      get db() { return db; },
+      save: save,
+      reset: reset,
+      exportText: exportText,
+      importText: importText,
+      storageOK: function () { return storageOK; }
+    },
+    srs: { GRADES: GRADES, nextState: nextState, previewDays: previewDays, normCard: normCard },
+    plan: {
+      gap: gap, mode: mode, blocks: blocks, markDone: markDone,
+      isDone: isDone, allDone: allDone, ensureDay: ensureDay
+    },
+    queue: { build: buildQueue, dueIds: dueIds, freshIds: freshIds, familiarIds: familiarIds },
+    words: { grade: grade, card: function (w) { return db.words[w] ? normCard(db.words[w]) : null; } },
+    progress: { markRead: markRead, markSpeak: markSpeak, markGrammar: markGrammar },
+    anchor: { set: setAnchor, get: getAnchor },
+    stats: { heat: heat, summary: summary }
+  };
+})();
+
+/* ==========================================================================
+   界面层 · 第 3 阶段：路由 + 今日页
+   只用 <style> 里已有的 class，不新增样式、不改 body 结构。
+   ========================================================================== */
+
+/* 各 tab 的渲染函数注册表：后面几个阶段往这里注册，不往 window 上挂东西 */
+const VIEWS = {};
+
+/* 离开当前 tab 时的清理函数（录音、发音、弹窗…），可以叠加多个 */
+const LEAVERS = [];
+VIEWS._leave = function () {
+  for (var i = 0; i < LEAVERS.length; i++) { try { LEAVERS[i](); } catch (e) { /* 清理失败不挡切换 */ } }
+  LEAVERS.length = 0;                    // 清空，避免每切换一次就往里堆一批闭包
+};
+
+(function () {
+  'use strict';
+
+  var view = document.getElementById('view');
+  var topstat = document.getElementById('topstat');
+  var TABS = ['home', 'words', 'speak', 'read', 'more'];
+  var TAB_NAME = { home: '今日', words: '单词', speak: '听说', read: '精读', more: '更多' };
+
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function tabOfMod(mod) {
+    if (mod === 'grammar' || mod === 'writing' || mod === 'more') return 'more';
+    if (mod === 'words' || mod === 'speak' || mod === 'read') return mod;
+    return 'home';
+  }
+
+  /* ---------- 今日页文案：按断档分档换标题，永远不出现天数 ---------- */
+  var HEAD = {
+    first:   { h1: '今天从哪开始', p: '三个小块，每个三分钟左右。<em>做完就是今天够了</em>，做不完也不算欠。' },
+    normal:  { h1: '今天从哪开始', p: '三个小块，每个三分钟左右。<em>做完就是今天够了</em>，做不完也不算欠。' },
+    return:  { h1: '今天先复习', p: '不学新词，只把认得的捞回来。<em>七个词，几分钟</em>，做完就算今天够了。' },
+    restart: { h1: '先找回手感', p: '从你以前最熟的几个词里挑一遍。<em>过完今天就算完了</em>，别的下次再说。' }
+  };
+
+  /* ---------- 今日页 ---------- */
+  function renderHome() {
+    var day = XU.date.today();
+    var m = XU.plan.mode(day);
+    var blocks = XU.plan.blocks(day);
+    var doneIds = XU.store.db.today.done;
+    var doneCount = 0;
+    var i;
+    for (i = 0; i < blocks.length; i++) if (doneIds.indexOf(blocks[i].id) !== -1) doneCount++;
+    var all = doneCount === blocks.length;
+
+    var head = HEAD[m.key] || HEAD.normal;
+    var h1 = all ? '今天够了' : head.h1;
+    var p = all ? '三块都做完了。想再练也行，不想也没关系，明天还是从这儿进。' : head.p;
+
+    var html = '<div class="greet"><h1>' + esc(h1) + '</h1><p>' + p + '</p></div>';
+    html += resumeCard(blocks, doneIds, all);
+    html += '<div class="sec-t"><h2>今天</h2><span class="small muted">' +
+      doneCount + ' / ' + blocks.length + ' 块</span></div>';
+    html += '<div class="block-list">';
+    for (i = 0; i < blocks.length; i++) html += blockHtml(blocks[i], i, doneIds);
+    html += '</div>';
+
+    if (all) {
+      html += '<div class="done-note"><div class="dn-t">今天够了</div>' +
+        '<div class="dn-s">不用每天来。回来的时候，从这里接着往下走。</div></div>';
+    }
+    html += heatHtml();
+
+    view.innerHTML = html;
+    bindGo();
+    topstat.innerHTML = '已完成 <b>' + doneCount + '</b> / ' + blocks.length;
+  }
+
+  function blockHtml(b, i, doneIds) {
+    var done = doneIds.indexOf(b.id) !== -1;
+    return '<div class="block' + (done ? ' done' : '') + '" data-go="' + esc(b.mod) + '">' +
+      '<div class="bk-num">' + (done ? '✓' : (i + 1)) + '</div>' +
+      '<div class="bk-main">' +
+        '<div class="bk-t">' + esc(b.title) + '</div>' +
+        '<div class="bk-s">' + esc(done ? '做完了' : b.sub) + '</div>' +
+      '</div>' +
+      '<div class="bk-go">›</div>' +
+    '</div>';
+  }
+
+  function resumeCard(blocks, doneIds, all) {
+    var a = XU.anchor.get();
+    var target = null, k, main, sub;
+    var i;
+
+    if (a && a.label) {
+      target = tabOfMod(a.mod);
+      k = '继续';
+      main = a.label;
+      sub = '点这里回到断掉的地方';
+    } else {
+      for (i = 0; i < blocks.length; i++) {
+        if (doneIds.indexOf(blocks[i].id) === -1) { target = tabOfMod(blocks[i].mod); k = '从这里开始'; main = blocks[i].title; sub = blocks[i].sub; break; }
+      }
+      if (!target && all) { k = '今天'; main = '三块都做完了'; sub = '明天还是从这儿进'; }
+    }
+
+    return '<div class="card resume-card"' + (target ? ' data-go="' + esc(target) + '"' : '') + '>' +
+      '<div class="rc-body">' +
+        '<div class="rc-k">' + esc(k) + '</div>' +
+        '<div class="rc-main">' + esc(main) + '</div>' +
+        '<div class="rc-sub">' + esc(sub) + '</div>' +
+      '</div>' +
+      '<div class="rc-arrow">' +
+        '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" ' +
+        'stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>' +
+      '</div>' +
+    '</div>';
+  }
+
+  function heatHtml() {
+    var h = XU.stats.heat(14);
+    var cells = '';
+    for (var i = 0; i < h.length; i++) {
+      var cls = 'h' + (h[i].level === 2 ? ' on' : h[i].level === 1 ? ' mid' : '') + (h[i].isToday ? ' today' : '');
+      cells += '<div class="' + cls + '"></div>';
+    }
+    return '<div class="sec-t"><h2>最近 14 天</h2></div>' +
+      '<div class="heat">' + cells + '</div>' +
+      '<div class="heat-legend"><span>14 天前</span><span>今天</span></div>';
+  }
+
+  function bindGo() {
+    var els = view.querySelectorAll('[data-go]');
+    for (var i = 0; i < els.length; i++) {
+      (function (el) {
+        el.addEventListener('click', function () { setTab(tabOfMod(el.getAttribute('data-go'))); });
+      })(els[i]);
+    }
+  }
+
+  /* ---------- 还没接的四个 tab ---------- */
+  function renderStub(name) {
+    view.innerHTML = '<div class="empty">' + esc(TAB_NAME[name] || '') +
+      ' 这一块下一阶段接入。<br>现在先看今日页。</div>';
+    topstat.innerHTML = '<b>—</b>';
+  }
+
+  /* ---------- 路由 ---------- */
+  function setTab(name) {
+    if (TABS.indexOf(name) === -1) name = 'home';
+    if (VIEWS._leave) { try { VIEWS._leave(); } catch (e) { /* 清理失败不影响切换 */ } }
+    var tabs = document.querySelectorAll('.tab');
+    for (var i = 0; i < tabs.length; i++) {
+      tabs[i].classList.toggle('on', tabs[i].getAttribute('data-tab') === name);
+    }
+    if (name === 'home') renderHome();
+    else if (VIEWS[name]) VIEWS[name]();
+    else renderStub(name);
+    window.scrollTo(0, 0);
+  }
+
+  var tabsEl = document.querySelectorAll('.tab');
+  for (var i = 0; i < tabsEl.length; i++) {
+    (function (b) {
+      b.addEventListener('click', function () { setTab(b.getAttribute('data-tab')); });
+    })(tabsEl[i]);
+  }
+
+  setTab('home');
+})();
+
+/* ==========================================================================
+   第 4 阶段：单词页（闪卡 + 四档 + 键盘）
+   同样是"只用现有 class"，翻面和打分区的显隐靠内联 display 切换。
+   ========================================================================== */
+
+const DOMU = (function () {
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  /* 例句里把目标词高亮（连带 -s / -es / -ed / -ing） */
+  function hl(text, word) {
+    var safe = esc(text);
+    var w = esc(word || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    if (!w) return safe;
+    try {
+      return safe.replace(new RegExp('\\b(' + w + '(?:s|es|ed|ing)?)\\b', 'i'), '<b>$1</b>');
+    } catch (e) { return safe; }
+  }
+
+  /* 发音：拿不到音色/不支持就静静地什么都不做 */
+  var voice = null, voiceTried = false;
+  function pickVoice() {
+    if (voice) return voice;
+    var vs = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
+    if (!vs.length) return null;
+    var en = vs.filter(function (v) { return /^en([-_]|$)/i.test(v.lang || ''); });
+    var local = en.filter(function (v) { return v.localService; });
+    var pool = local.length ? local : en;
+    voice = pool.filter(function (v) { return /en[-_]US/i.test(v.lang || ''); })[0] || pool[0] || null;
+    return voice;
+  }
+  function speak(text) {
+    if (!text || !window.speechSynthesis || !window.SpeechSynthesisUtterance) return;
+    try {
+      window.speechSynthesis.cancel();
+      var u = new window.SpeechSynthesisUtterance(String(text));
+      u.lang = 'en-US';
+      var v = pickVoice();
+      if (v) u.voice = v;
+      u.rate = XU.store.db.prefs.rate || 0.95;
+      window.speechSynthesis.speak(u);
+    } catch (e) { /* 设备没语音引擎：不弹错误 */ }
+  }
+
+  /* 底部提示条：同一条，反复用，不堆定时器 */
+  var toastTimer = null;
+  function toast(msg) {
+    var el = document.getElementById('toast');
+    if (!el) return;
+    el.textContent = String(msg || '');
+    el.classList.add('on');
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      toastTimer = null;
+      el.classList.remove('on');
+    }, 1800);
+  }
+
+  /* 在会反复复用的容器（比如 #view）上绑委托，先解绑上一次的，避免叠加触发 */
+  var boundEl = null, boundFn = null;
+  function onView(el, fn) {
+    if (boundEl && boundFn) { try { boundEl.removeEventListener('click', boundFn); } catch (e) { /* 已移除 */ } }
+    boundEl = el; boundFn = fn;
+    el.addEventListener('click', fn);
+  }
+
+  return { esc: esc, hl: hl, speak: speak, toast: toast, onView: onView };
+})();
+
+VIEWS.words = function () {
+  var view = document.getElementById('view');
+  var topstat = document.getElementById('topstat');
+  var day = XU.date.today();
+  var db = XU.store.db;
+
+  XU.plan.ensureDay(day);
+
+  function ensureSession() {
+    if (!db.session || !db.session.ids || !db.session.ids.length) {
+      var q = XU.queue.build(day);
+      db.session = { date: day, ids: q.ids.slice(), i: 0, graded: 0 };
+      XU.store.save();
+    }
+    return db.session;
+  }
+
+  function wordOf(w) {
+    for (var i = 0; i < WORDS.length; i++) if (WORDS[i].w === w) return WORDS[i];
+    return null;
+  }
+
+  function finishScreen() {
+    var s = db.session || { graded: 0 };
+    XU.plan.markDone('t1', 0);           // 卡片已逐张计入，这里不再重复加数
+    topstat.innerHTML = '本轮 <b>' + (s.graded || 0) + '</b> 张';
+    view.innerHTML =
+      '<div class="finish">' +
+        '<div class="fin-mark"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" ' +
+          'stroke="#2E5C4E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+          '<path d="M5 13l4.5 4.5L19 7"/></svg></div>' +
+        '<h3>这一轮够了</h3>' +
+        '<p>' + (s.graded ? '认了 ' + s.graded + ' 个词。' : '') +
+          '没记住的也记了一笔，下次它还会来。</p>' +
+        '<div class="fin-act">' +
+          '<button class="btn wide" id="wAgain" type="button">再来一轮</button>' +
+          '<button class="btn ghost wide" id="wHome" type="button">回今日</button>' +
+        '</div>' +
+      '</div>';
+    document.getElementById('wAgain').addEventListener('click', function () {
+      db.session = null;
+      setTabTo('words');
+    });
+    document.getElementById('wHome').addEventListener('click', function () { setTabTo('home'); });
+  }
+
+  function setTabTo(name) {
+    var b = document.querySelector('.tab[data-tab="' + name + '"]');
+    if (b) b.click();
+  }
+
+  var s = ensureSession();
+  if (s.i >= s.ids.length) { finishScreen(); return; }
+
+  var SHELL =
+    '<div class="flash-wrap">' +
+      '<div class="fbar">' +
+        '<div class="fb-l" id="wGroup"></div>' +
+        '<div class="fb-r" id="wCount"></div>' +
+      '</div>' +
+      '<div class="progress"><i id="wProg" style="width:0%"></i></div>' +
+      '<div class="flash" id="wCard" tabindex="0" role="button" aria-label="点一下看意思">' +
+        '<div class="fw" id="wWord"></div>' +
+        '<div class="fp" id="wPh"></div>' +
+        '<button class="fspeak" id="wSpeak" type="button" aria-label="听发音">' +
+          '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" ' +
+          'stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">' +
+          '<path d="M4 9.5h3.5L12 6v12L7.5 14.5H4z"/>' +
+          '<path d="M15.6 9a4.2 4.2 0 0 1 0 6"/><path d="M18.2 6.6a7.8 7.8 0 0 1 0 10.8"/></svg>' +
+        '</button>' +
+        '<div class="fback" id="wBack" style="display:none">' +
+          '<div class="fpos" id="wPos"></div>' +
+          '<div class="fcn" id="wCn"></div>' +
+          '<div class="fex"><div class="fe" id="wFe"></div><div class="fc" id="wFc"></div></div>' +
+        '</div>' +
+        '<div class="flash-hint tap" id="wHint">点一下看意思</div>' +
+      '</div>' +
+      '<div class="grade" id="wGrade" style="display:none">' +
+        '<button type="button" data-g="again"><b>忘了</b><span></span></button>' +
+        '<button type="button" data-g="hard"><b>勉强</b><span></span></button>' +
+        '<button type="button" data-g="good"><b>记得</b><span></span></button>' +
+        '<button type="button" data-g="easy"><b>太简单</b><span></span></button>' +
+      '</div>' +
+    '</div>';
+
+  view.innerHTML = SHELL;
+
+  function el(id) { return document.getElementById(id); }
+  var flipped = false;
+
+  function paint() {
+    var w = wordOf(s.ids[s.i]);
+    if (!w) { s.i++; XU.store.save(); return s.i >= s.ids.length ? finishScreen() : paint(); }
+
+    el('wWord').textContent = w.w;
+    el('wPh').textContent = w.p;
+    el('wPos').textContent = w.t;
+    el('wCn').textContent = w.c;
+    el('wFe').innerHTML = DOMU.hl(w.e, w.w);
+    el('wFc').textContent = w.ec;
+    el('wGroup').textContent = w.g;
+    el('wCount').textContent = (s.i + 1) + ' / ' + s.ids.length;
+    el('wProg').style.width = (s.ids.length ? (s.i / s.ids.length * 100) : 0) + '%';
+
+    var card = XU.words.card(w.w);
+    var btns = el('wGrade').querySelectorAll('button');
+    for (var i = 0; i < btns.length; i++) {
+      var g = btns[i].getAttribute('data-g');
+      var d = XU.srs.previewDays(card, g, day);
+      var sp = btns[i].querySelector('span');
+      if (sp) sp.textContent = d === 1 ? '明天' : d + ' 天';
+      btns[i].setAttribute('title', '按 ' + (i + 1) + ' · ' + (d === 1 ? '明天再见' : d + ' 天后再见'));
+    }
+
+    flip(false);
+    XU.anchor.set('words', w.g + ' · ' + w.w);
+    topstat.innerHTML = '本轮 <b>' + s.ids.length + '</b> 张';
+  }
+
+  function flip(on) {
+    flipped = typeof on === 'boolean' ? on : !flipped;
+    el('wBack').style.display = flipped ? '' : 'none';
+    el('wGrade').style.display = flipped ? 'grid' : 'none';
+    el('wHint').style.display = flipped ? 'none' : '';
+    el('wCard').setAttribute('aria-label', flipped ? '四档打分' : '点一下看意思');
+  }
+
+  function grade(g) {
+    if (!flipped) return;
+    var w = wordOf(s.ids[s.i]);
+    if (!w) return;
+    XU.words.grade(w.w, g, day);
+    s.i++;
+    s.graded = (s.graded || 0) + 1;
+    XU.store.save();
+    if (s.i >= s.ids.length) return finishScreen();
+    paint();
+  }
+
+  el('wCard').addEventListener('click', function () { flip(); });
+  el('wSpeak').addEventListener('click', function (e) {
+    e.stopPropagation();
+    var w = wordOf(s.ids[s.i]);
+    if (w) DOMU.speak(w.w);
+  });
+  el('wGrade').addEventListener('click', function (e) {
+    var b = (e.target && e.target.closest) ? e.target.closest('button[data-g]') : null;
+    if (b) grade(b.getAttribute('data-g'));
+  });
+
+  paint();
+};
+
+/* 键盘：全局只绑一次，靠卡片在不在 DOM 里判断是否生效 */
+document.addEventListener('keydown', function (e) {
+  var card = document.getElementById('wCard');
+  if (!card) return;
+  var t = e.target;
+  if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable)) return;
+  if (e.altKey || e.ctrlKey || e.metaKey) return;
+
+  if (e.key === ' ' || e.code === 'Space') {
+    if (t && t.tagName === 'BUTTON') return;
+    e.preventDefault();
+    card.click();
+    return;
+  }
+  if (!/^[1-4]$/.test(e.key)) return;
+  var g = document.getElementById('wGrade');
+  if (!g || g.style.display === 'none') return;
+  var btn = g.querySelectorAll('button')[Number(e.key) - 1];
+  if (btn) { e.preventDefault(); btn.click(); }
+});
+
+/* ==========================================================================
+   第 5 阶段：听说页（听 → 自己念 → 录音对一下）
+   录音拿不到就静默隐藏按钮，不弹任何错误。
+   ========================================================================== */
+
+VIEWS.speak = function () {
+  var view = document.getElementById('view');
+  var topstat = document.getElementById('topstat');
+  var db = XU.store.db;
+  var day = XU.date.today();
+
+  /* 24 句按 4 句一组切开：日常 ×2、职场 ×2、学术 ×2 */
+  var GROUPS = (function () {
+    var out = [], cur = null;
+    for (var i = 0; i < SHADOW.length; i++) {
+      if (i % 4 === 0) { cur = { id: 'sp' + (i / 4), g: SHADOW[i].g, items: [] }; out.push(cur); }
+      cur.items.push(SHADOW[i]);
+    }
+    return out;
+  })();
+
+  function pickGroup() {
+    var arr = GROUPS.map(function (g, i) {
+      var r = db.speak[g.id] || { sentences: 0, at: null };
+      return { g: g, i: i, done: r.sentences || 0, at: r.at || '' };
+    });
+    arr.sort(function (a, b) {
+      var af = a.done >= 4 ? 1 : 0, bf = b.done >= 4 ? 1 : 0;
+      if (af !== bf) return af - bf;                 // 没练完的排前面
+      if (a.at !== b.at) return a.at < b.at ? -1 : 1; // 最久没碰的优先
+      return a.i - b.i;
+    });
+    return arr[0];
+  }
+
+  var recBlocked = false;
+  var media = { stream: null, rec: null, url: null, chunks: [] };
+
+  function canRecord() {
+    return !recBlocked && !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder);
+  }
+
+  function stopRec(silent) {
+    try {
+      if (media.rec && media.rec.state === 'recording') { media.rec.onstop = null; media.rec.stop(); }
+    } catch (e) { /* 已经停了 */ }
+    try {
+      if (media.stream) media.stream.getTracks().forEach(function (t) { t.stop(); });
+    } catch (e) { /* 没有轨道 */ }
+    if (media.url) { try { URL.revokeObjectURL(media.url); } catch (e) { /* 已释放 */ } }
+    media = { stream: null, rec: null, url: null, chunks: [] };
+    if (!silent && window.speechSynthesis) { try { window.speechSynthesis.cancel(); } catch (e) { /* 无语音引擎 */ } }
+  }
+
+  var cur = pickGroup();
+  var gi = cur.done >= 4 ? 0 : cur.done;      // 已练完的组重练从头开始
+  var gs = cur.g;
+
+  function finishScreen() {
+    XU.plan.markDone('t2', 0);
+    topstat.innerHTML = '这一组 <b>4</b> 句';
+    view.innerHTML =
+      '<div class="finish">' +
+        '<div class="fin-mark"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" ' +
+          'stroke="#2E5C4E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+          '<path d="M5 13l4.5 4.5L19 7"/></svg></div>' +
+        '<h3>这一组完了</h3>' +
+        '<p>四句都过了一遍。要再练一组吗？</p>' +
+        '<div class="fin-act">' +
+          '<button class="btn wide" id="spMore" type="button">再来一组</button>' +
+          '<button class="btn ghost wide" id="spHome" type="button">回今日</button>' +
+        '</div>' +
+      '</div>';
+    document.getElementById('spMore').addEventListener('click', function () {
+      var t = document.querySelector('.tab[data-tab="speak"]');
+      if (t) t.click();
+    });
+    document.getElementById('spHome').addEventListener('click', function () {
+      var t = document.querySelector('.tab[data-tab="home"]');
+      if (t) t.click();
+    });
+  }
+
+  function renderSentence() {
+    stopRec(true);
+    var it = gs.items[gi];
+
+    var recBtn = canRecord()
+      ? '<button class="ctrl rec" type="button" data-a="rec">录音跟读</button>'
+      : '';
+
+    view.innerHTML =
+      '<div class="sec-t"><h2>听说</h2><span class="small muted">第 ' +
+        (gi + 1) + ' / ' + gs.items.length + ' 句</span></div>' +
+      '<div class="speak-card">' +
+        '<span class="chip">' + DOMU.esc(gs.g) + '</span>' +
+        '<div class="speak-en" id="spEn">' + DOMU.esc(it.e) + '</div>' +
+        '<div class="speak-cn hide" id="spCn">' + DOMU.esc(it.c) + '</div>' +
+        '<div class="speak-tip" id="spTip">' + DOMU.esc(it.l) + '</div>' +
+      '</div>' +
+      '<div class="ctrl-row">' +
+        '<button class="ctrl" type="button" data-a="play">听原句</button>' +
+        recBtn +
+        '<button class="ctrl" type="button" data-a="cn">看中文</button>' +
+        (gi > 0 ? '<button class="ctrl" type="button" data-a="prev">上一句</button>' : '') +
+        '<button class="ctrl" type="button" data-a="next">下一句</button>' +
+      '</div>';
+
+    topstat.innerHTML = '第 <b>' + (gi + 1) + '</b> / ' + gs.items.length + ' 句';
+    XU.anchor.set('speak', gs.g + ' · 第 ' + (gi + 1) + ' 句');
+
+    /* 绑在每次重建的 .ctrl-row 上，节点换掉监听就跟着消失，不会叠加 */
+    var row = view.querySelector('.ctrl-row');
+    if (row) row.addEventListener('click', onAction);
+  }
+
+  function onAction(e) {
+    var b = (e.target && e.target.closest) ? e.target.closest('[data-a]') : null;
+    if (!b) return;
+    var a = b.getAttribute('data-a');
+    var it = gs.items[gi];
+
+    if (a === 'play') { DOMU.speak(it.e); return; }
+
+    if (a === 'cn') {
+      var cn = document.getElementById('spCn');
+      if (cn) {
+        var hidden = cn.classList.toggle('hide');
+        b.textContent = hidden ? '看中文' : '收起中文';
+      }
+      return;
+    }
+
+    if (a === 'prev') { gi = Math.max(0, gi - 1); renderSentence(); return; }
+
+    if (a === 'next') {
+      XU.progress.markSpeak(gs.id, gi + 1);
+      gi++;
+      if (gi >= gs.items.length) { stopRec(true); finishScreen(); return; }
+      renderSentence();
+      return;
+    }
+
+    if (a === 'rec') {
+      if (media.rec && media.rec.state === 'recording') {
+        media.rec.onstop = function () {
+          if (media.url) { try { URL.revokeObjectURL(media.url); } catch (err) { /* 已释放 */ } }
+          var blob = new Blob(media.chunks, { type: media.chunks[0] ? media.chunks[0].type : 'audio/webm' });
+          media.url = URL.createObjectURL(blob);
+          b.classList.remove('on');
+          b.textContent = '听我的';
+          b.setAttribute('data-a', 'mine');
+          media.rec = null;
+          if (media.stream) { media.stream.getTracks().forEach(function (t) { t.stop(); }); media.stream = null; }
+        };
+        media.rec.stop();
+        return;
+      }
+      navigator.mediaDevices.getUserMedia({ audio: true }).then(function (st) {
+        media.stream = st;
+        media.chunks = [];
+        media.rec = new MediaRecorder(st);
+        media.rec.ondataavailable = function (ev) { if (ev.data && ev.data.size) media.chunks.push(ev.data); };
+        media.rec.start();
+        b.classList.add('on');
+        b.textContent = '停止';
+      }).catch(function () {
+        recBlocked = true;            // 拿不到麦克风：悄悄把按钮去掉，不弹错误
+        renderSentence();
+      });
+      return;
+    }
+
+    if (a === 'mine') {
+      if (!media.url) return;
+      try { new Audio(media.url).play(); } catch (err) { /* 播放失败不打断 */ }
+      return;
+    }
+  }
+
+  LEAVERS.push(function () { stopRec(); });
+
+  if (gi >= gs.items.length) { finishScreen(); return; }
+  renderSentence();
+};
+
+/* ==========================================================================
+   第 6 阶段：精读页（文章列表 → 逐句 → 点词查义）
+   词义优先查词库；查不到就给整句译文 + 发音，绝不编释义。
+   ========================================================================== */
+
+VIEWS.read = function () {
+  var view = document.getElementById('view');
+  var topstat = document.getElementById('topstat');
+  var db = XU.store.db;
+  var esc = DOMU.esc;
+  var pop = document.getElementById('wordpop');
+  var scrim = document.getElementById('scrim');
+
+  /* ---------- 查词：先词库，再精读释义表，都没有就交给整句译文 ---------- */
+  function lookup(raw) {
+    var w = String(raw || '').replace(/^[^A-Za-z'-]+|[^A-Za-z'-]+$/g, '').toLowerCase();
+    if (!w) return null;
+    var i;
+    for (i = 0; i < WORDS.length; i++) if (WORDS[i].w.toLowerCase() === w) return WORDS[i];
+    if (GLOSS[w]) return { w: w, c: GLOSS[w] };      // 精确匹配必须排在变形还原之前
+    var bases = [w, w.replace(/ies$/, 'y'), w.replace(/es$/, ''), w.replace(/s$/, ''),
+      w.replace(/ed$/, ''), w.replace(/ed$/, 'e'), w.replace(/ing$/, ''), w.replace(/ing$/, 'e')];
+    for (var b = 1; b < bases.length; b++) {
+      if (!bases[b] || bases[b] === w) continue;
+      for (i = 0; i < WORDS.length; i++) if (WORDS[i].w.toLowerCase() === bases[b]) return WORDS[i];
+      if (GLOSS[bases[b]]) return { w: bases[b], c: GLOSS[bases[b]] };
+    }
+    return null;
+  }
+
+  function closePop() {
+    pop.classList.remove('on');
+    scrim.classList.remove('on');
+  }
+
+  function openPop(rawWord, sentenceCn) {
+    var clean = String(rawWord || '').replace(/^[^A-Za-z'-]+|[^A-Za-z'-]+$/g, '');
+    var hit = lookup(clean);
+    var body;
+
+    if (hit && hit.p) {
+      body = '<div class="wp-w">' + esc(hit.w) + '</div>' +
+        '<div class="wp-p">' + esc(hit.p) + (hit.t ? '　' + esc(hit.t) : '') + '</div>' +
+        '<div class="wp-c">' + esc(hit.c) + '</div>';
+    } else if (hit) {
+      body = '<div class="wp-w">' + esc(clean) + '</div>' +
+        '<div class="wp-p">这个词在这篇文章里的意思</div>' +
+        '<div class="wp-c">' + esc(hit.c) + '</div>';
+    } else {
+      body = '<div class="wp-w">' + esc(clean) + '</div>' +
+        '<div class="wp-p">这个词还没收录</div>' +
+        '<div class="wp-c"><span class="muted small">对照它所在这一句的译文理解一下：</span><br>' +
+        esc(sentenceCn) + '</div>';
+    }
+
+    pop.innerHTML = body +
+      '<div class="wp-act">' +
+        '<button class="btn ghost sm" type="button" data-p="play">听一遍</button>' +
+        '<button class="btn sm" type="button" data-p="close">知道了</button>' +
+      '</div>';
+    pop.classList.add('on');
+    scrim.classList.add('on');
+
+    pop.onclick = function (e) {
+      var b = (e.target && e.target.closest) ? e.target.closest('[data-p]') : null;
+      if (!b) return;
+      var a = b.getAttribute('data-p');
+      if (a === 'play') DOMU.speak(hit ? hit.w : clean);
+      else closePop();
+    };
+  }
+
+  pop.onclick = null;
+  scrim.onclick = closePop;
+  LEAVERS.push(function () {
+    closePop();
+    scrim.onclick = null;
+    pop.onclick = null;
+    if (window.speechSynthesis) { try { window.speechSynthesis.cancel(); } catch (e) { /* 无语音引擎 */ } }
+  });
+
+  /* ---------- 把英文切成可点的词 ---------- */
+  function wrapWords(s) {
+    return String(s || '').split(/(\s+)/).map(function (tok) {
+      if (!tok || /^\s+$/.test(tok)) return tok;
+      return '<span class="w">' + esc(tok) + '</span>';
+    }).join('');
+  }
+
+  function exprCount(p) {
+    var n = 0;
+    for (var i = 0; i < p.s.length; i++) n += (p.s[i].k || []).length;
+    return n;
+  }
+
+  /* PASSAGES 里没有 id 字段，用下标当稳定的键 */
+  function pid(i) { return 'r' + (i + 1); }
+
+  /* ---------- 列表 ---------- */
+  function renderList() {
+    topstat.innerHTML = '<b>' + PASSAGES.length + '</b> 篇';
+    var html = '<div class="sec-t"><h2>精读</h2><span class="small muted">一篇 6 句</span></div><div id="rdList">';
+    for (var i = 0; i < PASSAGES.length; i++) {
+      var p = PASSAGES[i];
+      var rec = db.read[pid(i)];
+      html += '<div class="passage-item" data-p="' + i + '">' +
+        '<div class="pi-n">' + (i + 1) + '</div>' +
+        '<div class="pi-b">' +
+          '<div class="pi-t">' + esc(p.t) + '</div>' +
+          '<div class="pi-s">' + p.s.length + ' 句 · ' + exprCount(p) + ' 个表达' +
+            (rec ? ' · 读过' : '') + '</div>' +
+        '</div>' +
+        (rec ? '<div class="pi-d"></div>' : '') +
+      '</div>';
+    }
+    html += '</div>';
+    view.innerHTML = html;
+
+    document.getElementById('rdList').addEventListener('click', function (e) {
+      var it = (e.target && e.target.closest) ? e.target.closest('[data-p]') : null;
+      if (it) renderDetail(Number(it.getAttribute('data-p')));
+    });
+  }
+
+  /* ---------- 详情 ---------- */
+  function renderDetail(idx) {
+    var p = PASSAGES[idx];
+    topstat.innerHTML = '第 <b>' + (idx + 1) + '</b> / ' + PASSAGES.length + ' 篇';
+    XU.anchor.set('read', p.t);
+
+    var html = '<div class="sec-t"><h2>精读</h2>' +
+      '<button class="s-btn" type="button" id="rdBack">全部文章</button></div>' +
+      '<div class="greet"><h1>' + esc(p.t) + '</h1>' +
+      '<p>点句子里任意一个单词查意思；点「中文」看整句译文。</p></div>' +
+      '<div id="rdBody">';
+
+    for (var k = 0; k < p.s.length; k++) {
+      var it = p.s[k];
+      var rec = (it.k && it.k.length) ? '<br><span class="small">记：' + it.k.map(esc).join(' · ') + '</span>' : '';
+      html += '<div class="sent" data-i="' + k + '">' +
+        '<div class="s-en">' + wrapWords(it.e) + '</div>' +
+        '<div class="s-cn">' + esc(it.c) + rec + '</div>' +
+        '<div class="s-act">' +
+          '<button class="s-btn" type="button" data-a="cn">中文</button>' +
+          '<button class="s-btn dim" type="button" data-a="play">听</button>' +
+        '</div>' +
+      '</div>';
+    }
+    html += '</div><div class="divider"></div>' +
+      '<button class="btn wide" type="button" id="rdDone">这篇读完了</button>';
+
+    view.innerHTML = html;
+
+    document.getElementById('rdBack').addEventListener('click', renderList);
+
+    document.getElementById('rdBody').addEventListener('click', function (e) {
+      var wEl = (e.target && e.target.closest) ? e.target.closest('.w') : null;
+      if (wEl) {
+        var sent = wEl.closest('.sent');
+        var i = sent ? Number(sent.getAttribute('data-i')) : 0;
+        openPop(wEl.textContent, (p.s[i] && p.s[i].c) || '');
+        return;
+      }
+      var b = (e.target && e.target.closest) ? e.target.closest('[data-a]') : null;
+      if (!b) return;
+      var sent2 = b.closest('.sent');
+      var j = sent2 ? Number(sent2.getAttribute('data-i')) : 0;
+      var a = b.getAttribute('data-a');
+
+      if (a === 'cn') {
+        var on = sent2.classList.toggle('show');
+        b.textContent = on ? '收起' : '中文';
+        if (on) {
+          XU.progress.markRead(pid(idx), j + 1);
+          XU.anchor.set('read', p.t + ' · 第 ' + (j + 1) + ' 句');
+        }
+        return;
+      }
+      if (a === 'play') DOMU.speak(p.s[j] && p.s[j].e);
+    });
+
+    document.getElementById('rdDone').addEventListener('click', function () {
+      XU.progress.markRead(pid(idx), p.s.length);
+      XU.plan.markDone('t3', 0);
+      topstat.innerHTML = '<b>1</b> 篇读完';
+      view.innerHTML =
+        '<div class="finish">' +
+          '<div class="fin-mark"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" ' +
+            'stroke="#2E5C4E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+            '<path d="M5 13l4.5 4.5L19 7"/></svg></div>' +
+          '<h3>这篇读完了</h3>' +
+          '<p>精读不要求一次读透。下次从下一篇开始，或者把这篇再过一遍。</p>' +
+          '<div class="fin-act">' +
+            '<button class="btn wide" type="button" id="rdMore">再读一篇</button>' +
+            '<button class="btn ghost wide" type="button" id="rdHome">回今日</button>' +
+          '</div>' +
+        '</div>';
+      document.getElementById('rdMore').addEventListener('click', renderList);
+      document.getElementById('rdHome').addEventListener('click', function () {
+        document.querySelector('.tab[data-tab="home"]').click();
+      });
+    });
+  }
+
+  renderList();
+};
+
+/* ==========================================================================
+   第 7 阶段：更多页（语法 / 写作 / 学习进度 / 设置）
+   ========================================================================== */
+
+VIEWS.more = function () {
+  var view = document.getElementById('view');
+  var topstat = document.getElementById('topstat');
+  var esc = DOMU.esc;
+  var page = 'menu';
+
+  var ICO = {
+    grammar: '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h7"/></svg>',
+    writing: '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4l6 6-9 9H5v-6z"/></svg>',
+    stats: '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 19V9M12 19V5M19 19v-7"/></svg>',
+    settings: '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>'
+  };
+
+  function head(title, right) {
+    return '<div class="sec-t"><h2>' + esc(title) + '</h2>' +
+      (right === false ? '' : '<button class="s-btn" type="button" id="mBack">返回</button>') + '</div>';
+  }
+
+  function bindBack() {
+    var b = document.getElementById('mBack');
+    if (b) b.addEventListener('click', function () { page = 'menu'; render(); });
+  }
+
+  function render() {
+    if (page === 'menu') return renderMenu();
+    if (page === 'grammar') return renderGrammar();
+    if (page === 'writing') return renderWriting();
+    if (page === 'stats') return renderStats();
+    if (page === 'settings') return renderSettings();
+    renderMenu();
+  }
+
+  /* ---------- 菜单 ---------- */
+  function renderMenu() {
+    var s = XU.stats.summary();
+    topstat.innerHTML = '<b>4</b> 项';
+    var items = [
+      { k: 'grammar', t: '语法基础', s: s.grammarPoints + ' / ' + GRAMMAR.length + ' 条练过' },
+      { k: 'writing', t: '写作模板', s: WRITING.length + ' 个可以直接套的' },
+      { k: 'stats', t: '学习进度', s: '学过 ' + s.learned + ' 个词，读完 ' + s.readPassages + ' 篇' },
+      { k: 'settings', t: '设置', s: '语速、每日新词、数据备份' }
+    ];
+    var html = head('更多', false) + '<div class="menu-list">';
+    for (var i = 0; i < items.length; i++) {
+      html += '<div class="menu-item" data-page="' + items[i].k + '">' +
+        '<div class="mi-ico">' + ICO[items[i].k] + '</div>' +
+        '<div class="mi-b"><div class="mi-t">' + esc(items[i].t) + '</div>' +
+        '<div class="mi-s">' + esc(items[i].s) + '</div></div>' +
+        '<div class="mi-go">›</div></div>';
+    }
+    html += '</div>';
+    view.innerHTML = html;
+
+    view.querySelector('.menu-list').addEventListener('click', function (e) {
+      var it = (e.target && e.target.closest) ? e.target.closest('[data-page]') : null;
+      if (it) { page = it.getAttribute('data-page'); render(); }
+    });
+  }
+
+  /* ---------- 语法 ---------- */
+  function renderGrammar() {
+    topstat.innerHTML = '<b>' + GRAMMAR.length + '</b> 条';
+    var html = head('语法');
+    for (var i = 0; i < GRAMMAR.length; i++) {
+      var g = GRAMMAR[i];
+      html += '<div class="g-card" data-g="' + i + '">' +
+        '<div class="g-head">' +
+          '<div class="gh-n">' + (i + 1) + '</div>' +
+          '<div class="gh-b"><div class="gh-t">' + esc(g.t) + '</div>' +
+          '<div class="gh-s">' + esc(g.s) + '</div></div>' +
+          '<div class="gh-x">›</div>' +
+        '</div>' +
+        '<div class="g-body">' +
+          '<div class="g-form">' + esc(g.f) + '</div>';
+      for (var e = 0; e < g.ex.length; e++) {
+        html += '<div class="g-ex"><div class="ge-en">' + esc(g.ex[e].en) + '</div>' +
+          '<div class="ge-cn">' + esc(g.ex[e].cn) + '</div></div>';
+      }
+      html += '<div class="g-err">' + esc(g.err) + '</div>';
+      for (var q = 0; q < g.q.length; q++) {
+        html += '<div class="quiz" data-q="' + q + '">' +
+          '<div class="q-t">' + esc(g.q[q].t) + '</div>';
+        for (var o = 0; o < g.q[q].o.length; o++) {
+          html += '<button class="q-o" type="button" data-o="' + o + '">' +
+            String.fromCharCode(65 + o) + '. ' + esc(g.q[q].o[o]) + '</button>';
+        }
+        html += '<div class="q-why">' + esc(g.q[q].why) + '</div></div>';
+      }
+      html += '</div></div>';
+    }
+    view.innerHTML = html;
+    bindBack();
+
+    DOMU.onView(view, function (e) {
+      var gh = (e.target && e.target.closest) ? e.target.closest('.g-head') : null;
+      if (gh) { gh.parentNode.classList.toggle('open'); return; }
+
+      var opt = (e.target && e.target.closest) ? e.target.closest('.q-o') : null;
+      if (!opt) return;
+      var cardEl = opt.closest('.g-card');
+      if (!cardEl) return;
+      var qEl = opt.closest('.quiz');
+      if (!qEl || qEl.getAttribute('data-done') === '1') return;
+
+      var gi = Number(cardEl.getAttribute('data-g'));
+      var qi = Number(qEl.getAttribute('data-q'));
+      var item = GRAMMAR[gi].q[qi];
+      var pick = Number(opt.getAttribute('data-o'));
+      var right = pick === item.a;
+
+      qEl.setAttribute('data-done', '1');
+      var opts = qEl.querySelectorAll('.q-o');
+      for (var m = 0; m < opts.length; m++) {
+        var k = Number(opts[m].getAttribute('data-o'));
+        if (k === item.a) opts[m].classList.add('right');
+        else if (k === pick) opts[m].classList.add('wrong');
+      }
+      var why = qEl.querySelector('.q-why');
+      if (why) why.classList.add('on');
+
+      var total = GRAMMAR[gi].q.length;
+      cardEl.__right = (cardEl.__right || 0) + (right ? 1 : 0);
+      cardEl.__done = (cardEl.__done || 0) + 1;
+      if (cardEl.__done === total) {
+        XU.progress.markGrammar('gm' + (gi + 1), cardEl.__right, total);
+        DOMU.toast('这 ' + total + ' 道做完，记下了');
+      }
+    });
+  }
+
+  /* ---------- 写作 ---------- */
+  function renderWriting() {
+    topstat.innerHTML = '<b>' + WRITING.length + '</b> 个';
+    var html = head('写作模板') +
+      '<div class="greet"><h1>套着写就行</h1>' +
+      '<p>每个模板里<em>加粗</em>的地方是可替换的，换掉就是你的句子。</p></div>';
+    for (var i = 0; i < WRITING.length; i++) {
+      var w = WRITING[i];
+      var tpl = esc(w.tpl).replace(/&lt;b&gt;/g, '<b>').replace(/&lt;\/b&gt;/g, '</b>');
+      html += '<div class="card" style="margin-bottom:12px">' +
+        '<div class="sec-t" style="margin-top:0"><h2>' + esc(w.t) + '</h2>' +
+        '<span class="small muted">' + esc(w.s) + '</span></div>' +
+        '<div class="w-tpl">' + tpl + '</div>' +
+        '<div class="w-note">' + esc(w.note) + '</div>' +
+      '</div>';
+    }
+    view.innerHTML = html;
+    bindBack();
+  }
+
+  /* ---------- 学习进度 ---------- */
+  function renderStats() {
+    var s = XU.stats.summary();
+    topstat.innerHTML = '<b>' + s.studyDays + '</b> 天';
+    var bars = [
+      { t: '词库认过的词', n: s.learned, m: s.total },
+      { t: '其中记牢的', n: s.mastered, m: s.total },
+      { t: '精读读完的篇', n: s.readPassages, m: s.readTotal },
+      { t: '语法练过的条', n: s.grammarPoints, m: GRAMMAR.length }
+    ];
+    var html = head('学习进度') +
+      '<div class="stat-grid">' +
+        '<div class="stat-box"><div class="sb-n">' + s.learned + '<small>/' + s.total + '</small></div><div class="sb-l">认过的词</div></div>' +
+        '<div class="stat-box"><div class="sb-n">' + s.readPassages + '<small>/' + s.readTotal + '</small></div><div class="sb-l">读完的精读</div></div>' +
+        '<div class="stat-box"><div class="sb-n">' + s.studyDays + '</div><div class="sb-l">学过的天数</div></div>' +
+        '<div class="stat-box"><div class="sb-n">' + s.speakSegments + '<small>/' + (SHADOW.length / 4) + '</small></div><div class="sb-l">练过的跟读组</div></div>' +
+      '</div>' +
+      '<div class="sec-t"><h2>进度</h2></div>';
+    for (var i = 0; i < bars.length; i++) {
+      var pct = bars[i].m ? Math.round(bars[i].n / bars[i].m * 100) : 0;
+      html += '<div class="bar-row">' +
+        '<div class="br-h"><span>' + esc(bars[i].t) + '</span><span><b>' + bars[i].n + '</b> / ' + bars[i].m + '</span></div>' +
+        '<div class="bar-track"><i style="width:' + pct + '%"></i></div>' +
+      '</div>';
+    }
+    html += '<p class="small muted" style="margin-top:6px">数字只记录做过什么，不代表要求。</p>';
+    view.innerHTML = html;
+    bindBack();
+  }
+
+  /* ---------- 设置 ---------- */
+  var RATES = [0.75, 0.95, 1.15];
+
+  function renderSettings() {
+    topstat.innerHTML = '<b>—</b>';
+    var prefs = XU.store.db.prefs;
+    var rate = prefs.rate || 0.95;
+    var rateIdx = 0;
+    for (var i = 0; i < RATES.length; i++) if (Math.abs(RATES[i] - rate) < 0.01) rateIdx = i;
+    var fresh = prefs.newPerDay;
+
+    var html = head('设置') +
+      '<div class="set-row">' +
+        '<div><div class="sr-t">朗读语速</div><div class="sr-s">听原句和发音时用</div></div>' +
+        '<div class="stepper" data-k="rate"><button type="button" data-d="-1">−</button>' +
+        '<span>' + ['慢', '标准', '快'][rateIdx] + '</span><button type="button" data-d="1">+</button></div>' +
+      '</div>' +
+      '<div class="set-row">' +
+        '<div><div class="sr-t">每天新词</div><div class="sr-s">多了记不住，少了不够</div></div>' +
+        '<div class="stepper" data-k="new"><button type="button" data-d="-1">−</button>' +
+        '<span>' + fresh + '</span><button type="button" data-d="1">+</button></div>' +
+      '</div>' +
+      '<div class="divider"></div>' +
+      '<div class="menu-list">' +
+        '<div class="menu-item" data-do="export"><div class="mi-b"><div class="mi-t">导出数据</div>' +
+        '<div class="mi-s">把进度存成一段文字，换设备时用</div></div><div class="mi-go">›</div></div>' +
+        '<div class="menu-item" data-do="import"><div class="mi-b"><div class="mi-t">导入数据</div>' +
+        '<div class="mi-s">粘贴之前导出的文字</div></div><div class="mi-go">›</div></div>' +
+        '<div class="menu-item" data-do="reset"><div class="mi-b"><div class="mi-t" id="mReset">清空所有进度</div>' +
+        '<div class="mi-s">点一次不算，要连点两下</div></div><div class="mi-go">›</div></div>' +
+      '</div>';
+
+    if (!XU.store.storageOK()) {
+      html += '<p class="small" style="color:var(--warm);margin-top:14px">这个浏览器不让存本地数据，关掉页面进度就没了。换 Chrome 或 Safari 打开更稳。</p>';
+    }
+    html += '<p class="small muted" style="margin-top:18px">数据只存在这台设备的浏览器里，不上传、不需要登录。</p>';
+
+    view.innerHTML = html;
+    bindBack();
+
+    DOMU.onView(view, function (e) {
+      var st = (e.target && e.target.closest) ? e.target.closest('.stepper') : null;
+      if (st) {
+        var b = e.target.closest('button[data-d]');
+        if (!b) return;
+        var d = Number(b.getAttribute('data-d'));
+        var kind = st.getAttribute('data-k');
+        var p2 = XU.store.db.prefs;
+        if (kind === 'rate') {
+          var ri = RATES.indexOf(p2.rate);
+          if (ri < 0) ri = 1;
+          ri = Math.max(0, Math.min(RATES.length - 1, ri + d));
+          p2.rate = RATES[ri];
+          XU.store.save();
+          st.querySelector('span').textContent = ['慢', '标准', '快'][ri];
+          DOMU.toast('语速：' + ['慢', '标准', '快'][ri]);
+        } else {
+          var nv = Math.max(1, Math.min(12, (p2.newPerDay || 8) + d));
+          p2.newPerDay = nv;
+          XU.store.save();
+          st.querySelector('span').textContent = nv;
+          DOMU.toast('每天新词：' + nv + ' 个');
+        }
+        return;
+      }
+
+      var it = (e.target && e.target.closest) ? e.target.closest('[data-do]') : null;
+      if (!it) return;
+      var what = it.getAttribute('data-do');
+      if (what === 'export') openExport();
+      else if (what === 'import') openImport();
+      else if (what === 'reset') {
+        var label = document.getElementById('mReset');
+        if (label.getAttribute('data-armed') === '1') {
+          XU.store.reset();
+          DOMU.toast('清空了');
+          page = 'menu';
+          render();
+        } else {
+          label.setAttribute('data-armed', '1');
+          label.textContent = '再点一下，真的清空';
+          setTimeout(function () {
+            var l2 = document.getElementById('mReset');
+            if (l2 && l2.getAttribute('data-armed') === '1') {
+              l2.removeAttribute('data-armed');
+              l2.textContent = '清空所有进度';
+            }
+          }, 4000);
+        }
+      }
+    });
+  }
+
+  /* ---------- 导出 / 导入（复用底部弹层） ---------- */
+  var pop = document.getElementById('wordpop');
+  var scrim = document.getElementById('scrim');
+
+  function closeSheet() {
+    pop.classList.remove('on');
+    scrim.classList.remove('on');
+    pop.onclick = null;
+  }
+  LEAVERS.push(closeSheet);
+
+  function openSheet(html) {
+    pop.innerHTML = html;
+    pop.classList.add('on');
+    scrim.classList.add('on');
+    scrim.onclick = closeSheet;
+  }
+
+  function openExport() {
+    openSheet(
+      '<div class="wp-w" style="font-size:19px">导出数据</div>' +
+      '<div class="wp-p">下面这段文字就是你的全部进度，复制走存好</div>' +
+      '<div class="wp-c"><textarea id="mExp" readonly style="width:100%;min-height:120px;' +
+      'font:11px/1.5 ui-monospace,Consolas,monospace;padding:8px;border:1px solid var(--line);' +
+      'border-radius:10px;background:#FAF8F2;resize:vertical">' + esc(XU.store.exportText()) + '</textarea></div>' +
+      '<div class="wp-act">' +
+        '<button class="btn ghost sm" type="button" data-x="copy">复制</button>' +
+        '<button class="btn sm" type="button" data-x="close">好了</button>' +
+      '</div>');
+    pop.onclick = function (e) {
+      var b = e.target.closest('[data-x]');
+      if (!b) return;
+      if (b.getAttribute('data-x') === 'close') return closeSheet();
+      var ta = document.getElementById('mExp');
+      ta.focus(); ta.select();
+      var done = false;
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(ta.value);
+          done = true;
+        }
+      } catch (err) { done = false; }
+      if (!done) { try { done = document.execCommand('copy'); } catch (err2) { done = false; } }
+      DOMU.toast(done ? '复制好了' : '已全选，长按复制');
+    };
+  }
+
+  function openImport() {
+    openSheet(
+      '<div class="wp-w" style="font-size:19px">导入数据</div>' +
+      '<div class="wp-p">把之前导出的文字贴进来，会覆盖现在的进度</div>' +
+      '<div class="wp-c"><textarea id="mImp" style="width:100%;min-height:120px;' +
+      'font:11px/1.5 ui-monospace,Consolas,monospace;padding:8px;border:1px solid var(--line);' +
+      'border-radius:10px;background:#FAF8F2;resize:vertical" placeholder="粘贴到这里"></textarea></div>' +
+      '<div class="wp-act">' +
+        '<button class="btn ghost sm" type="button" data-x="close">取消</button>' +
+        '<button class="btn sm" type="button" data-x="go">导入</button>' +
+      '</div>');
+    pop.onclick = function (e) {
+      var b = e.target.closest('[data-x]');
+      if (!b) return;
+      if (b.getAttribute('data-x') === 'close') return closeSheet();
+      var ta = document.getElementById('mImp');
+      var r = XU.store.importText(ta.value);
+      if (!r.ok) { DOMU.toast(r.err || '这段文字不对'); return; }
+      closeSheet();
+      DOMU.toast('导入好了');
+      page = 'menu';
+      render();
+    };
+  }
+
+  render();
+};
+</script>
+</body>
+</html>
